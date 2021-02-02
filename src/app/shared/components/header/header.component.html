@@ -1,8 +1,52 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark p-3">
-  <a class="navbar-brand" routerLink="/" > Meu Bankline </a>
-  <div class="navbar-nav">
-    <a class="nav-item nav-link" routerLink="signedIn/dashboard" routerLinkActive="active">Home </a>
-    <button type="button" class="btn btn-outline-light" (click) = "logout()">Logout</button>
-    <button class="btn"></button>
-  </div>
-</nav>
+<header class="align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container m-auto" width="100%">
+      <a class="navbar-brand">
+        <img src="assets/img/logo.png" class="img-fluid" width="200px" alt="">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">  
+          <ng-container *ngIf="!logado">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/signUp" routerLinkActive="active">SignUp</a>
+            </li>            
+          </ng-container>                                
+          <ng-container *ngIf="logado">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" routerLink="/signedIn/home" routerLinkActive="active">Home</a>
+            </li>  
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/signedIn/dashboard" routerLinkActive="active">Dashboard</a>
+            </li>
+          </ng-container>
+        </ul>                                              
+      </div>
+      <ng-container *ngIf="!logado">
+        <div class="d-flex flex-row-reverse bd-highlight">
+          <div class="p-2 bd-highlight">
+            <a routerLink="" routerLinkActive="active" class="linkSair">
+              <button id="start_session" class="btn btn-secondary">
+                Login
+              </button>
+            </a>
+          </div>
+        </div>   
+      </ng-container>                                
+      <ng-container *ngIf="logado">
+        <div class="d-flex flex-row-reverse bd-highlight">
+          <div class="p-2 bd-highlight">
+            <button id="destroy_session" type="button" (click)="logout()" class="btn btn-secondary" >
+              Sair
+            </button>
+          </div>                                
+        </div>
+      </ng-container>                  
+    </div>  
+  </nav>
+</header>

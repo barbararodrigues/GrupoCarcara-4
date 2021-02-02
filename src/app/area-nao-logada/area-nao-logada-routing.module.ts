@@ -10,7 +10,11 @@ const routes: Routes = [{
   path: '',
   component: AreaNaoLogadaComponent,
   children: [{
-    path: '',
+    path:"",
+    redirectTo:"login"
+  },
+  {
+    path: 'login',
     component: LoginComponent
   },
   {

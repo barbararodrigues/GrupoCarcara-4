@@ -64,7 +64,7 @@ export class LoginComponent {
 
   onSuccessLogin(response: LoginResponse) {
 
-    this.route.navigate(['signedIn/dashboard'])
+    this.route.navigate(['signedIn/home'])
   }
   onErrorLogin(error: any){
     console.log("Erro", error)
