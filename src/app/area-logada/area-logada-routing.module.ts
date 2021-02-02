@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from '../shared/components/home/home.component';
 
 import { AreaLogadaComponent } from './area-logada.component';
-import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [{
   path: '',
   component: AreaLogadaComponent,
   children: [{
+      path:"",
+      redirectTo:"home"
+    },
+    {
       path: 'home',
-      component: HomeComponent
+      component: HomeComponent,
     },
     {
     path: 'dashboard',

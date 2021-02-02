@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AreaNaoLogadaComponent }  from './area-nao-logada.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
+import { HomeComponent } from '../shared/components/home/home.component';
 
 
 const routes: Routes = [{  
@@ -11,7 +12,11 @@ const routes: Routes = [{
   component: AreaNaoLogadaComponent,
   children: [{
     path:"",
-    redirectTo:"login"
+    redirectTo:"home"
+  },
+  {
+    path:"home",
+    component: HomeComponent
   },
   {
     path: 'login',
