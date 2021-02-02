@@ -17,7 +17,7 @@ export class NaoEstaLogadoGuard implements CanActivate {
     if(naoEstaLogado){
       return true
     }
-    this.route.navigate(['dashboard']);
+    this.route.navigate(['signedIn/dashboard']);
 
     return true;
   }

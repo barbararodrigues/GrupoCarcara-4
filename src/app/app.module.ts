@@ -7,16 +7,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CadastroComponent } from './cadastro/cadastro.component';
 import { Erro404Component } from './erro404/erro404.component';
 
 registerLocaleData(localePT, 'pt');
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CadastroComponent,
-    Erro404Component,
+    AppComponent,    
+    Erro404Component
   ],
   imports: [
     BrowserModule,

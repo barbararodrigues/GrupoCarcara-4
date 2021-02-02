@@ -16,8 +16,8 @@ export class HeaderComponent {
   ) { }
 
   logout(){
-    this.authService.logoutsuario()
-    this.router.navigate(['login']);
+    this.authService.logOutsuario()
+    this.router.navigate(['']);
   }
 
 }

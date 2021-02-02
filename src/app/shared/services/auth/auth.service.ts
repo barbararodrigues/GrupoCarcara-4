@@ -45,7 +45,7 @@ export class AuthService {
     return undefined;
   }
 
-  logoutsuario(){
+  logOutsuario(){
     localStorage.clear();
     delete this.token;
     delete this.usuario;

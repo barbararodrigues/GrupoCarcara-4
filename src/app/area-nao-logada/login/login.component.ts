@@ -64,12 +64,12 @@ export class LoginComponent {
 
   onSuccessLogin(response: LoginResponse) {
 
-    this.route.navigate(['dashboard'])
+    this.route.navigate(['signedIn/dashboard'])
   }
   onErrorLogin(error: any){
-     console.log("Erro", error)
-     this.erorNoLogin = true;
-     this.estaCarregando = false;
+    console.log("Erro", error)
+    this.erorNoLogin = true;
+    this.estaCarregando = false;
   }
 
 }

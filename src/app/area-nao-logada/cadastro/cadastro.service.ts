@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { mergeMap } from 'rxjs/operators';
 
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { LoginService } from '../login/login.service';
-import { AuthService } from '../shared/services/auth/auth.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
 import { CadastroCredenciais, CadastroResponse } from './cadastro.interfaces';
 
 @Injectable({

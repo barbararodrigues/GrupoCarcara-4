@@ -1,5 +1,5 @@
-import { conta, contaCredito } from '../shared/interfaces/conta.interfaces';
-import { usuario } from '../shared/interfaces/usuario.interfaces';
+import { conta, contaCredito } from '../../shared/interfaces/conta.interfaces';
+import { usuario } from '../../shared/interfaces/usuario.interfaces';
 
 export interface LoginCredenciais {
   usuario: string;

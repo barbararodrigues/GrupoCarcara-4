@@ -15,7 +15,7 @@ constructor(private AuthService: AuthService, private route: Router){}
     if(estaLogado){
       return true
     }
-    this.route.navigate(['home']);
+    this.route.navigate(['']);
 
     return true;
   }
