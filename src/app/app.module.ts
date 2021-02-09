@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Erro404Component } from './erro404/erro404.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 registerLocaleData(localePT, 'pt');
 
@@ -21,6 +22,7 @@ registerLocaleData(localePT, 'pt');
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [{
     provide: LOCALE_ID,

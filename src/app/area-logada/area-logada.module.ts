@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -16,6 +16,9 @@ import { AreaLogadaComponent } from './area-logada.component';
     AreaLogadaRoutingModule,
     FormsModule,
     SharedModule,
+  ],
+  providers:[
+    DatePipe
   ]
 })
 export class AreaLogadaModule { }
