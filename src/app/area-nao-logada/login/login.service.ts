@@ -21,6 +21,7 @@ export class LoginService {
       tap(response =>{
         this.authService.setUsuario(response.usuario);
         this.authService.setToken(response.token);
+        this.authService.setFimToken(response.dataFim.toString());
       })
     )
   }

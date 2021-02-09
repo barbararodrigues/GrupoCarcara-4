@@ -7,8 +7,9 @@ import { usuario } from '../../interfaces/usuario.interfaces';
 })
 export class AuthService {
 
-  usuario: usuario | undefined
-  token: string | undefined
+  usuario: usuario | undefined;
+  token: string | undefined;
+  fimToken: Date | undefined;
 
   constructor() { }
 
@@ -22,6 +23,11 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
+  setFimToken(fimToken: string){
+    this.fimToken = new Date(fimToken);    
+    localStorage.setItem('tokenTime', fimToken);
+  }
+
   getUsuario() {
     if(this.usuario){
       return this.usuario;
@@ -33,6 +39,7 @@ export class AuthService {
     }
     return undefined;
   }
+
   getToken() {
     if(this.token){
       return this.token;
@@ -45,23 +52,34 @@ export class AuthService {
     return undefined;
   }
 
+  getFimToken() {
+    if(this.fimToken){
+      return this.fimToken;
+    }
+    const tokenTimeLocalStorage = localStorage.getItem('usuario');
+    if(tokenTimeLocalStorage) {
+      this.fimToken = new Date(tokenTimeLocalStorage);
+      return this.fimToken;
+    }
+    return undefined;
+  }
+
   logOutsuario(){
     localStorage.clear();
     delete this.token;
     delete this.usuario;
+    delete this.fimToken;
   }
 
   estaLogado(){
-    if(this.getUsuario() && this.getToken()){
-      return true
+    if(this.getUsuario() && this.getToken()){      
+      return true;
+      /*let horaAtual = new Date();      
+      if(horaAtual < (this.getFimToken() as Date)){
+        return true
+      } */           
     }
     return false;
   }
-
-  naoEstaLogado(){
-    if(!this.getUsuario() || !this.getToken()){
-      return true
-    }
-    return false;
-  }
+  
 }

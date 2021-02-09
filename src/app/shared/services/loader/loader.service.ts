@@ -13,11 +13,17 @@ export class LoaderService {
 
   modalReference: NgbModalRef | undefined;
 
-  open() {
-    this.modalReference = this.modalService.open(LoaderComponent, {centered: true, keyboard:false, backdrop:'static'} );
+  temModalLoader: boolean = false;
+
+  open() {    
+    if(!this.temModalLoader){      
+      this.temModalLoader = true;
+      this.modalReference = this.modalService.open(LoaderComponent, {centered: true, keyboard:false, backdrop:'static'} );
+    }          
   }
 
   close(){
+    this.temModalLoader = false;
     this.modalReference!.close();
   }
 

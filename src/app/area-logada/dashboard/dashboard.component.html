@@ -1,101 +1,251 @@
-<main class="container p-4">
-
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h1 class="display-4"> Seja bem-vindo, {{ usuario!.nome }}! </h1>
-      <p class="lead"> Acompanhe abaixo suas contas e seus lançamentos. </p>
-    </div>
-  </div>
-
-  <form class="row g-3 p-5">
-    <div class="col-md-5">
-      <label for="inicio">Início</label>
-      <input type="date" class="form-control" id="inicio" name="inicio"
-      [(ngModel)]="inicio" (ngModelChange)="getDashboard()">
-    </div>
-    <div class="col-md-5">
-      <label for="inicio">Fim</label>
-      <input type="date" class="form-control" id="fim" name="fim"
-      [(ngModel)]="fim" (ngModelChange)="getDashboard()">
-    </div>
-    <div class="col-md-2">
-      <button class="btn btn-primary" (click)="getDashboard()">
-        Aplicar
-      </button>
-    </div>
-  </form>
-
-  <div class="text-center" *ngIf="erro">
-    <p>Ops, algo deu errado!</p>
-  </div>
-
-  <div class="text-center" *ngIf="estaCarregando">
-    <div class="spinner-border mt-4" role="status"></div>
-  </div>
-
-  <div class="row" *ngIf="dashboard && !estaCarregando && !erro">
-    <div class="col">
-      <div class="card" [ngClass]="getBordaCardCSS(dashboard.contaBanco.saldo)">
-        <h5 class="card-header">Conta Débito</h5>
-        <div class="card-body">
-          <p class="card-text"> Dados do período selecionado.</p>
-
-          <table class="table table-hover"
-            *ngIf="dashboard!.contaBanco.lancamentos.length > 0; else semLancamentosDebito">
-            <thead>
-              <tr>
-                <th scope="col">Data</th>
-                <th scope="col">Descrição</th>
-                <th scope="col">Valor</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let lancamento of dashboard!.contaBanco.lancamentos">
-                <td> {{ lancamento.data | date }} </td>
-                <td> {{ lancamento.descricao }} </td>
-                <td> {{ lancamento.valor | currency }} </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <ng-template #semLancamentosDebito>
-            <p> Sem lançamentos no período selecionado. </p>
-          </ng-template>
-
-          <h5 class="card-title text-success"> Saldo total da conta: {{ dashboard!.contaBanco.saldo | currency }}</h5>
-
+<div id="container" class="container-fluid pageEntry">
+  <div class="titulo">
+    <h2 id="mensagemTitulo">
+      Bem-vindo(a) {{usuario?.nome}} 
+    </h2>   
+    <div class="acoes">
+      <div class="btn-acao" (click)="atualizarDados()">
+        <i title="Recarregar Dados" class="bi bi-arrow-repeat"></i>
+      </div>                
+      <div class="btn-acao" (click)="abrirModal(modalFiltro)">
+        <i title="Filtrar Movimentações" class="bi bi-funnel"></i>
+      </div>
+      <div class="btn-acao" (click)="abrirModal(modalMovimentarConta)">
+        <i title="Movimentar conta" class="bi bi-upc"></i>
+      </div>          
+      <div class="btn-acao" (click)="abrirModal(modalTransferenciaEntreContas)">
+        <i title="Realizar Transferência Usuário" class="bi bi-box-arrow-up"></i>
+      </div>          
+    </div>                
+  </div>    
+  <div class="contas">
+    <div class="row">
+      <div class="col-md-6">  
+        <div class="card" style="width: 100%;">
+          <div class="card-body">
+            <h5 class="card-title"><strong>Conta Débito</strong></h5>
+            <h6 class="card-subtitle mb-2 text-muted" id="saldoContaDebito">Saldo: {{dashboard?.contaBanco?.saldo | currency:"BRL"}}</h6>                                                                        
+          </div>
+        </div>
+      </div>                
+      <div class="col-md-6">  
+        <div class="card" style="width: 100%;">
+          <div class="card-body">
+            <h5 class="card-title"><strong>Conta Crédito</strong></h5>
+            <h6 class="card-subtitle mb-2 text-muted" id="saldoContaCredito">Saldo: {{dashboard?.contaCredito?.saldo | currency:"BRL"}}</h6>                                                                        
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="col">
-      <div class="card" [ngClass]="getBordaCardCSS(dashboard!.contaCredito.saldo)">
-        <h5 class="card-header">Conta Crédito</h5>
-        <div class="card-body">
-          <p class="card-text"> Dados do período selecionado.</p>
-
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Data</th>
-                <th scope="col">Descrição</th>
-                <th scope="col">Valor</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let lancamento of dashboard!.contaCredito.lancamentos">
-                <td> {{ lancamento.data | date }} </td>
-                <td> {{ lancamento.descricao }} </td>
-                <td> {{ lancamento.valor | currency }} </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h5 class="card-title" [ngClass]="getTextSaldoCSS(dashboard!.contaCredito.saldo)"> Saldo total da conta: {{ dashboard!.contaCredito.saldo | currency }}</h5>
-
+    </div>                            
+  </div>
+  <div class="movimentacoes">
+    <div class="row">
+      <div class="col-md-12">  
+        <div class="card" style="width: 100%;">
+          <div class="card-body">
+            <h5 class="card-title"><strong>Movimentações</strong></h5>
+            <h6 class="card-subtitle mb-2 text-muted" id="lblTipoConta">  
+              Tipo: {{textoMovimentacao}}                              
+            </h6> 
+            <h6 class="card-subtitle mb-2 text-muted" id="" *ngIf="dataInicio == dataFim">   
+              Data: {{dataInicio | date:"dd/MM/yyyy"}}
+            </h6> 
+            <h6 class="card-subtitle mb-2 text-muted" id="" *ngIf="dataInicio != dataFim">   
+              Data Inicio: {{dataInicio | date:"dd/MM/yyyy"}}
+            </h6> 
+            <h6 class="card-subtitle mb-2 text-muted" id="" *ngIf="dataInicio != dataFim">   
+              Data Fim: {{dataFim | date:"dd/MM/yyyy"}}
+            </h6> 
+            <div class="corpoMovimentacoes" id="corpoMovimentacoes">  
+              <div *ngIf="!!dashboard?.lancamentosExibidos?.length" class="centralizar">
+                <ng-container *ngFor="let lancamento of dashboard?.lancamentosExibidos; last as last">
+                  <div class="movimentacao"  >
+                    <h5 class="card-subtitle mb-3 tipoConta">
+                      <strong>{{lancamento.tipoConta}}</strong>
+                    </h5>                                                                                       
+                    <h6 class="card-subtitle mb-2">
+                      Valor: {{lancamento.valor | currency:"BRL"}}
+                    </h6>               
+                    <h6 class="card-subtitle mb-2">
+                      Descrição: {{lancamento.descricao}}
+                    </h6>               
+                    <h6 class="card-subtitle mb-2 ">
+                      Tipo de Movimentação: {{lancamento.tipo}}
+                    </h6>                                                                                                                                 
+                    <h6 class="card-subtitle mb-2 ">
+                      Data: {{lancamento.data | date:"dd/MM/yyyy"}}
+                    </h6>                            
+                  </div>
+                  <div *ngIf="!last">
+                    <div class="separador">
+                    </div>
+                  </div>
+                </ng-container>                        
+              </div>  
+              <div *ngIf="!!!dashboard?.lancamentosExibidos?.length">
+                <div class="movimentacao">
+                  <h5 class="card-subtitle tipoConta">
+                    <strong>Não há movimentações com os filtros informados</strong>
+                  </h5>                                                                                                         
+                </div>
+              </div>                    
+            </div>                                
+          </div>
         </div>
-      </div>
+      </div>       
     </div>
   </div>
-
-</main>
+  <ng-template #modalFiltro let-modal>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Filtro</h5>  
+        <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">        
+        <form>
+          <div class="form-group">
+            <label>
+              Data Inicial
+            </label>
+            <input type="date" class="form-control" name="dataInicio" [(ngModel)]="inpDataInicio">                            
+          </div>
+          <div class="form-group">
+            <label>
+              Data Final
+            </label>
+            <input type="date" class="form-control" name="dataFim" [(ngModel)]="inputDataFim">                             
+          </div>
+          <div class="form-group">
+            <label>
+              Tipo de Conta
+            </label>
+            <select name="seltipoConta" class="form-control" [(ngModel)]="seltipoConta">
+              <option value="3">
+                Todas
+              </option>
+              <option value="2">
+                Débito
+              </option>
+              <option value="1">
+                Crédito
+              </option>
+            </select>
+          </div>
+          <h4 class="aviso" id="" *ngIf="mostrarErroData">
+            A data inicial precisa ser anterior à data final
+          </h4>
+        </form>          
+      </div>
+      <div class="modal-footer">                    
+        <button type="button" class="btn btn-primary" (click)="salvarFiltro()">Salvar Filtro</button>
+      </div>                                          
+    </div> 
+  </ng-template>  
+  <ng-template #modalMovimentarConta let-modal>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Movimentar conta</h5>  
+        <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>
+              Descrição
+            </label>
+            <input type="text" class="form-control" name="descricaoOperacao" [(ngModel)]="inpDescricaoOperacao">                            
+          </div>    
+          <div class="form-group">
+            <label>
+              Valor
+            </label>
+            <input type="number" class="form-control" name="valorOperacao" [(ngModel)]="inpValorOperacao">                            
+          </div>    
+          <div class="form-group">
+            <label>
+              Data Operação
+            </label>
+            <input type="date" class="form-control" name="dataOperacao" [(ngModel)]="inpDataOperacao">                            
+          </div>                        
+          <div class="form-group">
+            <label>
+              Tipo da Operação
+            </label>
+            <select name="tipoOperacao" class="form-control" [(ngModel)]="selTipoOperacao" (change)="changeTipoOperacao()">
+              <option value="25">
+                Recebimento
+              </option>
+              <option value="26">
+                Despesa
+              </option>
+              <option value="27">
+                Transferência de conta débito para crédito
+              </option>                                
+            </select>
+          </div>
+          <div class="form-group" name="groupTipoContaOperacao" *ngIf="selTipoOperacao != '27'">
+            <label>
+              Conta
+            </label>
+            <select name="tipoContaOperacao" class="form-control" [(ngModel)]="selTipoContaOperacao">
+              <option value="Debito">
+                Débito
+              </option>
+              <option value="Credito">
+                Crédito
+              </option>                                
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">                    
+        <button type="button" class="btn btn-primary" (click)="realizarOperacao()">Realizar Operação</button>
+      </div>                            
+    </div>    
+  </ng-template>
+  <ng-template #modalTransferenciaEntreContas let-modal>
+    <div class="modal-content">
+      <div class="modal-header ">
+        <h5 class="modal-title" id="exampleModalLongTitle">Transfência entre contas</h5>    
+        <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>                                                           
+      </div>
+      <div class="modal-body centralizado">
+        <form>
+          <div class="form-group">
+            <label>
+              Descrição
+            </label>
+            <input type="text" class="form-control" name="descricaoTransferencia" [(ngModel)]="inpDescricaoTransferencia">                            
+          </div>    
+          <div class="form-group">
+            <label>
+              Valor
+            </label>
+            <input type="number" class="form-control" name="valorTransferencia" [(ngModel)]="inpValorTransferencia">                            
+          </div>    
+          <div class="form-group">
+            <label>
+              Data Operação
+            </label>
+            <input type="date" class="form-control" name="dataTransferencia" [(ngModel)]="inpDataTransferencia">                            
+          </div>   
+          <div class="form-group">
+            <label>
+              Login da conta para transferir
+            </label>
+            <input type="text" class="form-control" name="loginTransferencia" [(ngModel)]="inpLoginTransferencia">                            
+          </div>                                                                             
+        </form>        
+      </div>  
+      <div class="modal-footer">                    
+        <button type="button" class="btn btn-primary" (click)="realizarTransferencia()">Realizar Transferência</button>
+      </div>
+    </div>
+  </ng-template>    
+</div>

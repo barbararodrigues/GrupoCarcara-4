@@ -1,0 +1,94 @@
+.titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.titulo h2 {
+    font-weight: 900;
+}
+
+.titulo i {
+    font-size: 1.6rem;
+    color: white;
+}
+
+.titulo i:hover{
+    color: #212529;  
+}
+
+.titulo .btn-acao {
+    background-color: orange;
+    border-radius: 26px;
+    cursor: pointer;
+    margin-right: 5px;
+    padding: 5px;
+}
+
+.acoes {
+    display: flex;
+}
+
+.header {
+    border-bottom: lightgray 1px solid;
+    -webkit-box-shadow: 0px 7px 5px 0px rgba(161, 161, 161, 1);
+    -moz-box-shadow: 0px 7px 5px 0px rgba(161, 161, 161, 1);
+    box-shadow: 0px 0px 5px 0px rgba(161, 161, 161, 1);
+}
+
+.card-title {
+    color: orange;
+}
+
+.tipoConta{
+    font-size: 1.1rem;
+}
+
+.movimentacoes {
+    margin-top: 20px;
+}
+
+.corpoMovimentacoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.movimentacao {
+    border: solid 1px lightgoldenrodyellow;
+    background-color: orange;
+    padding: 15px;
+    color: white;
+    border-radius: 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 300px;
+}
+
+.movimentacao h6 {
+    margin-top: 1px;
+}
+
+.separador {
+    height: 30px;
+    border: dashed lightgray 2px;
+}
+
+.aviso{
+    color:red;
+}
+
+.escondido{
+    display: none;;
+}
+.centralizar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

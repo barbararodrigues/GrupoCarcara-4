@@ -12,7 +12,7 @@ export class NaoEstaLogadoGuard implements CanActivate {
 
 
   canActivate(): boolean{
-    const naoEstaLogado = this.AuthService.naoEstaLogado();
+    const naoEstaLogado = !this.AuthService.estaLogado();
 
     if(naoEstaLogado){
       return true

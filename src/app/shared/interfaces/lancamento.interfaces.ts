@@ -9,4 +9,5 @@ export interface Lancamento {
   planoConta: PlanoConta;
   tipo: string;
   valor: number;
+  tipoConta: string;
 }
