@@ -42,6 +42,10 @@ export class LoginComponent {
     this.login();
   }
 
+  onNewRegister() {
+    this.route.navigate(['signUp'])
+  }
+
   exibeErro(nomeControle: string,form: NgForm) {
     if(!form.controls[nomeControle]){
       return false;
@@ -64,7 +68,7 @@ export class LoginComponent {
 
   onSuccessLogin(response: LoginResponse) {
 
-    this.route.navigate(['signedIn/home'])
+    this.route.navigate(['signedIn/dashboard'])
   }
   onErrorLogin(error: any){
     console.log("Erro", error)

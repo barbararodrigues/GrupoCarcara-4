@@ -15,6 +15,7 @@ export class CadastroComponent implements OnInit {
   @ViewChild('loginInput') usuarioInput: ElementRef | undefined
   @ViewChild('nomeInput') nomeInput: ElementRef | undefined
   @ViewChild('senhaInput') senhaInput: ElementRef | undefined
+  @ViewChild('resenhaInput') resenhaInput: ElementRef | undefined
 
   constructor(private CadastroService: CadastroService, private route: Router) { }
 
@@ -22,6 +23,7 @@ export class CadastroComponent implements OnInit {
   login = ''
   nome = ''
   senha = ''
+  resenha = ''
 
 
   estaCarregando: boolean = false;
@@ -31,45 +33,72 @@ export class CadastroComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.erorNoCadastro = false;
-    if (!form.valid) {
-      form.controls.login.markAsTouched();
-      form.controls.senha.markAsTouched();
-      return;
+    try {
+      this.erorNoCadastro = false;
+      if (!form.valid) {
+        form.controls.login.markAsTouched();
+        form.controls.senha.markAsTouched();
+        return;
+      }
+      this.cadastrar();
     }
-
-    this.cadastrar();
+    catch (error) {
+      console.log(`Erro no método: OnSubmit.Cadastro: ${error}`);
+    }
   }
+
+
+
   cadastrar() {
-    this.estaCarregando = true;
-    const credenciais = {
-      cpf: this.cpf,
-      login: this.login,
-      nome: this.nome,
-      senha: this.senha
-    };
-    this.CadastroService.cadastrar(credenciais)
-      .subscribe(
-        response => this.onSuccessCadastro(response),
-        error => this.onErrorCadastro(error)
-      );
+    try {
+      this.estaCarregando = true;
+      const credenciais = {
+        cpf: this.cpf,
+        login: this.login,
+        nome: this.nome,
+        senha: this.senha
+      };
+      this.CadastroService.cadastrar(credenciais)
+        .subscribe(
+          response => this.onSuccessCadastro(response),
+          error => this.onErrorCadastro(error)
+        );
+    }
+    catch (error) {
+      console.log(`Erro no método: Cadastrar.Cadastro: ${error}`);
+    }
   }
 
-  exibeErro(nomeControle: string,form: NgForm) {
-    if(!form.controls[nomeControle]){
-      return false;
+  exibeErro(nomeControle: string, form: NgForm) {
+    try {
+      if (!form.controls[nomeControle]) {
+        return false;
+      }
+      return form.controls[nomeControle].invalid && form.controls[nomeControle].touched;
     }
-    return form.controls[nomeControle].invalid && form.controls[nomeControle].touched;
+    catch (error) {
+      console.log(`Erro no método: exibeErro.Cadastro: ${error}`);
+    }
+    return false;
   }
 
   onSuccessCadastro(response: CadastroResponse) {
-
-    this.route.navigate(['dashboard'])
+    try {
+      this.route.navigate(['dashboard']);
+    }
+    catch (error) {
+      console.log(`Erro no método: onSuccessCadastro.Cadastro: ${error}`);
+    }
   }
-  onErrorCadastro(error: any){
-     console.log("Erro", error)
-     this.erorNoCadastro = true;
-     this.estaCarregando = false;
+  onErrorCadastro(error: any) {
+    try {
+      console.log("Erro", error)
+      this.erorNoCadastro = true;
+      this.estaCarregando = false;
+    }
+    catch (error) {
+      console.log(`Erro no método: onErrorCadastro.Cadastro: ${error}`);
+    }
   }
 
 

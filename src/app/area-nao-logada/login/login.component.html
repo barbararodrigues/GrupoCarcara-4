@@ -1,28 +1,48 @@
-<div class="container pt-5 text-center">
+<div class="container">
+  <div class="row mt-5 mb-5">
+    <div class="col-md-6">
+      <img class="img-fluid m-auto d-none d-md-block" width="100%" alt="Imagem resposiva"
+        src="assets/img/carcara-img-login.png" />
+    </div>
+    <div class="col-md-6 mx-auto">
+      <div class="card signup-card pt-xl-4 pb-xl-5">
+        <h2 class="mt-5 mt-md-3 mt-lg-5 mb-lg-4 text-center">Faça seu login</h2>
+        <form class="px-5 pb-5 py-xl-5 pb-md-5 pt-lg-4 pb-lg-5" #form="ngForm">
+          <div class="form-group">
 
-  <h1> Seja bem-vindo ao Bankline!</h1>
-  <form class="form-signin" #form="ngForm">
-    <div class="form-group mt-3">
-      <input autocomplete="username" type="text" class="form-control" placeholder="Usuário"
-       [(ngModel)] = "usuario" name ="usuario" required
-       [class.is-invalid]="exibeErro('usuario',form)" #usuarioInput
-       >
-       <div class="invalid-feedback">
-        Usuário invalido
+            <input autocomplete="username" type="text" class="form-control" placeholder="Usuário" [(ngModel)]="usuario"
+              name="usuario" required [class.is-invalid]="exibeErro('usuario',form)" #usuarioInput>
+            <div class="invalid-feedback">
+              Usuário invalido
+            </div>
+
+          </div>
+          <div class="form-group ">
+            <input autocomplete="current-password" type="password" class="form-control" placeholder="Senha"
+              [(ngModel)]="senha" name="senha" required [class.is-invalid]="exibeErro('senha',form)" #senhaInput>
+            <div class="invalid-feedback">
+              Senha invalida
+            </div>
+          </div>
+
+          <div *ngIf="erorNoLogin">
+            Usuário e ou senha está invalido!
+          </div>
+          <div *ngIf="estaCarregando">Carregando...</div>
+
+          <div class="row">
+            <div class="col-md-12 col-lg-6">
+              <button type="submit" class="btn btn-warning w-100 my-1" (click)="onSubmit(form)">Entrar</button>
+
+            </div>
+            <div class="col-md-12 col-lg-6">
+              <button type="submit" class="btn btn-warning w-100 my-1" (click)="onNewRegister()">Cadastrar</button>
+
+            </div>
+          </div>
+
+        </form>
       </div>
     </div>
-    <div class="form-group mt-3">
-      <input autocomplete="current-password" type="password" class="form-control" placeholder="Senha"  [(ngModel)] = "senha" name = "senha" required
-      [class.is-invalid]="exibeErro('senha',form)" #senhaInput>
-      <div class="invalid-feedback">
-        Senha invalida
-      </div>
-    </div>
-
-    <div *ngIf = "erorNoLogin">
-      Usuário e ou senha está invalido!
-    </div>
-    <div *ngIf="estaCarregando">Carregando...</div>
-    <button type="submit" class="btn btn-primary mt-3" (click) ="onSubmit(form)">Entrar</button>
-  </form>
+  </div>
 </div>
