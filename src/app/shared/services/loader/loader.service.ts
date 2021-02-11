@@ -15,16 +15,26 @@ export class LoaderService {
 
   temModalLoader: boolean = false;
 
-  open() {    
-    if(!this.temModalLoader){      
-      this.temModalLoader = true;
-      this.modalReference = this.modalService.open(LoaderComponent, {centered: true, keyboard:false, backdrop:'static'} );
-    }          
+  open() {
+    try {
+      if (!this.temModalLoader) {
+        this.temModalLoader = true;
+        this.modalReference = this.modalService.open(LoaderComponent, { centered: true, keyboard: false, backdrop: 'static' });
+      }
+    }
+    catch (error) {
+      console.log(`Erro no método: open.Loader: ${error}`);
+    }
   }
 
-  close(){
-    this.temModalLoader = false;
-    this.modalReference!.close();
+  close() {
+    try {
+      this.temModalLoader = false;
+      this.modalReference!.close();
+    }
+    catch (error) {
+      console.log(`Erro no método: close.Loader: ${error}`);
+    }
   }
 
 }

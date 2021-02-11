@@ -23,57 +23,87 @@ export class LoginComponent {
 
   constructor(private LoginService: LoginService, private route: Router) { }
   onSubmit(form: NgForm) {
-    this.erorNoLogin = false;
-    if (!form.valid) {
-      form.controls.usuario.markAsTouched();
-      form.controls.senha.markAsTouched();
+    try {
+      this.erorNoLogin = false;
+      if (!form.valid) {
+        form.controls.usuario.markAsTouched();
+        form.controls.senha.markAsTouched();
 
-      if (form.controls.usuario.invalid) {
-        this.usuarioInput?.nativeElement.focus();
+        if (form.controls.usuario.invalid) {
+          this.usuarioInput?.nativeElement.focus();
+        }
+
+        if (form.controls.senha.invalid) {
+          this.senhaInput?.nativeElement.focus();
+        }
+
+        return;
       }
 
-      if (form.controls.senha.invalid) {
-        this.senhaInput?.nativeElement.focus();
-      }
-
-      return;
+      this.login();
     }
-
-    this.login();
+    catch (error) {
+      console.log(`Erro no método: onSubmit.Login: ${error}`);
+    }
   }
 
   onNewRegister() {
-    this.route.navigate(['signUp'])
+    try {
+      this.route.navigate(['signUp'])
+    }
+    catch (error) {
+      console.log(`Erro no método: onNewRegister.Login: ${error}`);
+    }
   }
 
-  exibeErro(nomeControle: string,form: NgForm) {
-    if(!form.controls[nomeControle]){
-      return false;
+  exibeErro(nomeControle: string, form: NgForm) {
+    try {
+      if (!form.controls[nomeControle]) {
+        return false;
+      }
+      return form.controls[nomeControle].invalid && form.controls[nomeControle].touched;
     }
-    return form.controls[nomeControle].invalid && form.controls[nomeControle].touched;
+    catch (error) {
+      console.log(`Erro no método: exibeErro.Login: ${error}`);
+    }
+    return;
   }
 
   login() {
-    this.estaCarregando = true;
-    const credenciais = {
-      usuario: this.usuario,
-      senha: this.senha
-    };
-    this.LoginService.logar(credenciais)
-      .subscribe(
-        response => this.onSuccessLogin(response),
-        error => this.onErrorLogin(error)
-      );
+    try {
+      this.estaCarregando = true;
+      const credenciais = {
+        usuario: this.usuario,
+        senha: this.senha
+      };
+      this.LoginService.logar(credenciais)
+        .subscribe(
+          response => this.onSuccessLogin(response),
+          error => this.onErrorLogin(error)
+        );
+    }
+    catch (error) {
+      console.log(`Erro no método: login.Login: ${error}`);
+    }
   }
 
   onSuccessLogin(response: LoginResponse) {
-
-    this.route.navigate(['signedIn/dashboard'])
+    try {
+      this.route.navigate(['signedIn/dashboard'])
+    }
+    catch (error) {
+      console.log(`Erro no método: onSuccessLogin.Login: ${error}`);
+    }
   }
-  onErrorLogin(error: any){
-    console.log("Erro", error)
-    this.erorNoLogin = true;
-    this.estaCarregando = false;
+  onErrorLogin(error: any) {
+    try {
+      console.log("Erro", error)
+      this.erorNoLogin = true;
+      this.estaCarregando = false;
+    }
+    catch (error) {
+      console.log(`Erro no método: onErrorLogin.Login: ${error}`);
+    }
   }
 
 }
