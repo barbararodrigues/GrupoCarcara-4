@@ -105,5 +105,6 @@ export class LoginComponent {
       console.log(`Erro no método: onErrorLogin.Login: ${error}`);
     }
   }
+  
 
 }

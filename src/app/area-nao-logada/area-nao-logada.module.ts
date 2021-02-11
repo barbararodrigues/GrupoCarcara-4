@@ -10,6 +10,7 @@ import { AreaNaoLogadaRoutingModule } from './area-nao-logada-routing.module';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { AreaNaoLogadaComponent } from './area-nao-logada.component';
 import { SharedModule } from '../shared/shared.module';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 
 registerLocaleData(localePT, 'pt');
 
@@ -24,7 +25,8 @@ registerLocaleData(localePT, 'pt');
     AreaNaoLogadaRoutingModule,
     FormsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [{
     provide: LOCALE_ID,

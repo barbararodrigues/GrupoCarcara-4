@@ -24,8 +24,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <input autocomplete="cpf" type="text" class="form-control" placeholder="Cpf" minlength="11"
-                  [(ngModel)]="cpf" name="cpf" required [class.is-invalid]="exibeErro('cpf',form)" #cpfInput>
+                <input autocomplete="cpf" type="text" class="form-control" placeholder="CPF" minlength="14"
+                  [(ngModel)]="cpf" name="cpf" required [class.is-invalid]="exibeErro('cpf',form)" mask="000.000.000-00" #cpfInput>
                 <div class="invalid-feedback">
                   CPF invalido
                 </div>
