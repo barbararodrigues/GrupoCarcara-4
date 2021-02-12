@@ -57,7 +57,7 @@
               Data Fim: {{dataFim | date:"dd/MM/yyyy"}}
             </h6> 
             <div class="corpoMovimentacoes" id="corpoMovimentacoes">  
-              <div *ngIf="!!dashboard?.lancamentosExibidos?.length" class="centralizar">
+              <div *ngIf="!!dashboard?.lancamentosExibidos?.length" class="text-center">
                 <ng-container *ngFor="let lancamento of dashboard?.lancamentosExibidos; last as last">
                   <div class="movimentacao"  >
                     <h5 class="card-subtitle mb-3 tipoConta">
@@ -215,7 +215,7 @@
           <span aria-hidden="true">&times;</span>
         </button>                                                           
       </div>
-      <div class="modal-body centralizado">
+      <div class="modal-body text-center">
         <form>
           <div class="form-group">
             <label>
