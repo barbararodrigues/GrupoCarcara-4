@@ -30,4 +30,36 @@ body {
     border: none !important
 }
 
+.scroll {
+    &::-webkit-scrollbar{
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
+        border-radius:  4px;
+    }
+    
+    &::-moz-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    
+    &::-moz-webkit-scrollbar-track {
+        box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
+        border-radius:  4px;
+    }
+
+    &::-moz--webkit-scrollbar-thumb {
+        background: rgba(243, 176, 68, 0.7);
+        border-radius: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: rgba(243, 176, 68, 0.7);
+        border-radius: 4px;
+    }
+
+}
+
 @import '~bootstrap/scss/bootstrap';
