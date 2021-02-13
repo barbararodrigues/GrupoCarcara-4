@@ -1,34 +1,25 @@
-.titulo {
+.dashboard-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
     padding: 10px;
-}
+    
+    h2 {
+        font-weight: 900;
+    }
 
-.titulo h2 {
-    font-weight: 900;
-}
+    .btn{
 
-.titulo i {
-    font-size: 1.6rem;
-    color: white;
-}
+        p {
+            inline-size: max-content;
+        }
 
-.titulo i:hover{
-    color: #212529;  
-}
+        i {
+            font-size: 24px;
+        }
+    }
 
-.titulo .btn-acao {
-    background-color: orange;
-    border-radius: 26px;
-    cursor: pointer;
-    margin-right: 5px;
-    padding: 5px;
-}
-
-.acoes {
-    display: flex;
 }
 
 .header {

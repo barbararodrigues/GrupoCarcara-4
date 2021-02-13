@@ -1,23 +1,31 @@
-<div id="container" class="container-fluid pageEntry">
-  <div class="titulo">
-    <h2 id="mensagemTitulo">
+<div class="container-fluid">
+  <div class="dashboard-header row">
+    <h2>
       Bem-vindo(a) {{usuario?.nome}} 
     </h2>   
-    <div class="acoes">
-      <div class="btn-acao" (click)="atualizarDados()">
-        <i title="Recarregar Dados" class="bi bi-arrow-repeat"></i>
-      </div>                
-      <div class="btn-acao" (click)="abrirModal(modalFiltro)">
+    <div class="btn-group pb-3 pt-3 overflow-auto scroll" role="group" aria-label="Basic example">
+      <button type="button" (click)="atualizarDados()" class="btn btn-outline-primary">
+          <i title="Recarregar Dados" class="bi bi-arrow-repeat"></i>
+          <p class="m-0">Recarregar</p>     
+      </button>
+
+      <button type="button" (click)="abrirModal(modalFiltro)" class="btn btn-outline-primary">
         <i title="Filtrar Movimentações" class="bi bi-funnel"></i>
-      </div>
-      <div class="btn-acao" (click)="abrirModal(modalMovimentarConta)">
+        <p class="m-0">Filtrar Movimentações</p>     
+      </button>
+
+      <button type="button" (click)="abrirModal(modalMovimentarConta)" class="btn btn-outline-primary">
         <i title="Movimentar conta" class="bi bi-upc"></i>
-      </div>          
-      <div class="btn-acao" (click)="abrirModal(modalTransferenciaEntreContas)">
-        <i title="Realizar Transferência Usuário" class="bi bi-box-arrow-up"></i>
-      </div>          
-    </div>                
-  </div>    
+        <p class="m-0">Movimentar Conta</p>     
+      </button>
+
+      <button type="button" (click)="abrirModal(modalTransferenciaEntreContas)" class="btn btn-outline-primary">
+        <i title="Realizar Transferência" class="bi bi-box-arrow-up"></i>
+        <p class="m-0">Realizar Transferência</p>     
+      </button>
+    </div>                 
+  </div>  
+
   <div class="contas">
     <div class="row">
       <div class="col-md-6">  

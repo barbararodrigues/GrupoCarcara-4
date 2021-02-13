@@ -31,17 +31,19 @@ body {
 }
 
 .form-group {
-    height: 60px;
-    margin-bottom: 0 !important;
+    &.custom {
+        height: 60px;
+        margin-bottom: 0 !important;
 
-    .form-control {
-        &:focus {
-            border-color: $secondary;
+        .form-control {
+            &:focus {
+                border-color: $secondary;
+            }
         }
-    }
-
-    .invalid-feedback {
-        margin: 0;
+    
+        .invalid-feedback {
+            margin: 0;
+        }
     }
 }
 
