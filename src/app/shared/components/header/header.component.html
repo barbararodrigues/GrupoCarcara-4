@@ -1,55 +1,49 @@
 <header class="p-3 align-items-center px-md-4 border-bottom shadow-sm">
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container m-auto" width="100%">
-      <a *ngIf="!logado" class="navbar-brand p-0" routerLink="/home" routerLinkActive="active">
-        <img src="assets/img/logo.png" class="img-fluid" width="150px" alt="Banco Carcará">
+  <nav class="navbar navbar-light p-0">
+    <div
+      class="container-fluid justify-content-center justify-content-sm-around p-0"
+    >
+      <a
+        class="navbar-brand p-0"
+        routerLink="{{ !logado ? '/home' : '/signedIn/home' }}"
+        routerLinkActive="active"
+      >
+        <img
+          src="{{ !logado ? 'assets/img/logo.png' : 'assets/img/logo.png' }}"
+          class="img-fluid"
+          width="150px"
+          alt="Banco Carcará"
+        />
       </a>
-      <a *ngIf="logado"class="navbar-brand p-0" routerLink="/signedIn/home" routerLinkActive="active">
-        <img src="assets/img/logo.png" class="img-fluid" width="150px" alt="Banco Carcará">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarNav">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">  
-          <ng-container *ngIf="!logado">
-            <li class="nav-item">
-              <a class="nav-link " aria-current="page" routerLink="/home" routerLinkActive="active">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link " routerLink="/signUp" routerLinkActive="active">Abrir Conta</a>
-            </li>            
-          </ng-container>                                
-          <ng-container *ngIf="logado">
-            <li class="nav-item">
-              <a class="nav-link " aria-current="page" routerLink="/signedIn/home" routerLinkActive="active">Home</a>
-            </li>  
-            <li class="nav-item">
-              <a class="nav-link " routerLink="/signedIn/dashboard" routerLinkActive="active">Dashboard</a>
-            </li>
-          </ng-container>
-        </ul>                                              
-      </div>
-      <ng-container *ngIf="!logado">
-        <div class="d-flex flex-row-reverse bd-highlight">
-          <div class="p-2 bd-highlight">
-            <a routerLink="/login" routerLinkActive="active" class="linkSair">
-              <button id="start_session" class="btn btn-outline-warning" routerLinkActive="active">
-                Entrar
-              </button>
-            </a>
-          </div>
-        </div>   
-      </ng-container>                                
-      <ng-container *ngIf="logado">
-        <div class="d-flex flex-row-reverse bd-highlight">
-          <div class="p-2 bd-highlight">
-            <button id="destroy_session" type="button" (click)="logout()" class="btn btn-outline-warning" routerLinkActive="active" >
-              Sair
-            </button>
-          </div>                                
-        </div>
-      </ng-container>                  
-    </div>  
+
+      <ul class="navbar-nav d-flex flex-row me-auto mb-2 mt-2">
+        <li class="nav-item">
+          <a
+            class="nav-link p-2 mr-md-4"
+            aria-current="page"
+            routerLink="{{ !logado ? '/home' : '/signedIn/home' }}"
+            routerLinkActive="active"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link p-2 mr-md-4"
+            routerLink="{{ !logado ? '/signUp' : '/signedIn/dashboard' }}"
+            routerLinkActive="active"
+            >{{ !logado ? "Abrir Conta" : "Dashboard" }}</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link p-2 mr-md-4"
+            routerLink="/login"
+            (click)="logado ? logout() : null"
+            routerLinkActive="active"
+            >{{ !logado ? "Entrar" : "Sair" }}</a
+          >
+        </li>
+      </ul>
+    </div>
   </nav>
 </header>

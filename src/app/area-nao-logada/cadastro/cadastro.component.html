@@ -1,5 +1,5 @@
  <div class="container">
-    <div class="content bg-color--yellow content-border--rounded">
+    <div class="content shadow p-3 mb-5 bg-body rounded bg-secondary ">
       <div class="row mt-5 mb-5">
         <div class="col-md-6 mt-2">
           <div class="fluid text-center pt-5">
@@ -15,7 +15,7 @@
         <div class="col-md-6 m-auto">
           <div class="card signup-card">
             <h2 class="mt-5 mb-4 text-center">Abra agora a sua Conta Digital!</h2>
-            <form class="p-5" #form="ngForm">
+            <form class="p-3" #form="ngForm">
               <div class="form-group">
                 <input autocomplete="username" type="text" class="form-control" placeholder="Usuário"
                   [(ngModel)]="login" name="login" required [class.is-invalid]="exibeErro('login',form)" #loginInput>
@@ -49,11 +49,13 @@
               <div class="form-group">
                 <input autocomplete="current-password" type="password" class="form-control" placeholder="Digite a senha novamente"
                 [(ngModel)]="resenha" name="resenha" required [class.is-invalid]="exibeErro('resenha',form)" #resenhaInput>
-              <div class="invalid-feedback">
-                As senhas não coincidem!
+                <div class="invalid-feedback">
+                  As senhas não coincidem!
+                </div>
               </div>
+              <div class="d-flex justify justify-content-end">
+                <button class="btn btn-warning" (click)="onSubmit(form)">Abrir Conta</button>
               </div>
-              <button class="btn btn-warning" (click)="onSubmit(form)">Cadastrar</button>
             </form>
           </div>
         </div>
