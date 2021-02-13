@@ -1,5 +1,19 @@
-.header{
-  text-align: center;
-  padding: 1rem;
-  background-color: blue;
+.navbar {
+  .navbar-brand {
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .nav-link {
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 40px;
+
+    &.active {
+      color: #f4b130 !important;
+      border-bottom: 1px solid #f4b130;
+      transition: all 500ms;
+    }
+  }
 }

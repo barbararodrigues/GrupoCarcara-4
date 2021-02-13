@@ -1,92 +1,100 @@
-<div id="container" class="container-fluid pageEntry">
-  <div class="titulo">
-    <h2 id="mensagemTitulo">
-      Bem-vindo(a) {{usuario?.nome}} 
-    </h2>   
-    <div class="acoes">
-      <div class="btn-acao" (click)="atualizarDados()">
-        <i title="Recarregar Dados" class="bi bi-arrow-repeat"></i>
-      </div>                
-      <div class="btn-acao" (click)="abrirModal(modalFiltro)">
-        <i title="Filtrar Movimentações" class="bi bi-funnel"></i>
-      </div>
-      <div class="btn-acao" (click)="abrirModal(modalMovimentarConta)">
+<div class="container-fluid">
+  <div class="dashboard-header row p-3">
+    <h3 class="text-muted">
+      Olá {{usuario?.nome}} 
+    </h3>   
+    <div class="btn-group pb-3 pt-3 overflow-auto scroll" role="group" aria-label="Basic example">
+      <button type="button" (click)="atualizarDados()" class="btn btn-outline-primary">
+          <i title="Recarregar Dados" class="bi bi-arrow-repeat"></i>
+          <p class="m-0">Recarregar</p>     
+      </button>
+      <button type="button" (click)="abrirModal(modalMovimentarConta)" class="btn btn-outline-primary">
         <i title="Movimentar conta" class="bi bi-upc"></i>
-      </div>          
-      <div class="btn-acao" (click)="abrirModal(modalTransferenciaEntreContas)">
-        <i title="Realizar Transferência Usuário" class="bi bi-box-arrow-up"></i>
-      </div>          
-    </div>                
-  </div>    
+        <p class="m-0">Movimentar Conta</p>     
+      </button>
+
+      <button type="button" (click)="abrirModal(modalTransferenciaEntreContas)" class="btn btn-outline-primary">
+        <i title="Realizar Transferência" class="bi bi-box-arrow-up"></i>
+        <p class="m-0">Realizar Transferência</p>     
+      </button>
+    </div>                 
+  </div>  
+
   <div class="contas">
     <div class="row">
-      <div class="col-md-6">  
-        <div class="card" style="width: 100%;">
+      <div class="col-md-6 d-flex mb-3">  
+        <div class="card w-100">
           <div class="card-body">
-            <h5 class="card-title"><strong>Conta Débito</strong></h5>
-            <h6 class="card-subtitle mb-2 text-muted" id="saldoContaDebito">Saldo: {{dashboard?.contaBanco?.saldo | currency:"BRL"}}</h6>                                                                        
+            <h5 class="text-secondary"><strong>Conta Débito</strong></h5>
+            <h6 class="mb-2 text-muted" id="saldoContaDebito">Saldo: {{dashboard?.contaBanco?.saldo | currency:"BRL"}}</h6>                                                                        
           </div>
         </div>
       </div>                
-      <div class="col-md-6">  
-        <div class="card" style="width: 100%;">
+      <div class="col-md-6 d-flex mb-3">  
+        <div class="card w-100">
           <div class="card-body">
-            <h5 class="card-title"><strong>Conta Crédito</strong></h5>
-            <h6 class="card-subtitle mb-2 text-muted" id="saldoContaCredito">Saldo: {{dashboard?.contaCredito?.saldo | currency:"BRL"}}</h6>                                                                        
+            <h5 class="text-secondary"><strong>Conta Crédito</strong></h5>
+            <h6 class="mb-2 text-muted" id="saldoContaCredito">Saldo: {{dashboard?.contaCredito?.saldo | currency:"BRL"}}</h6>                                                                        
           </div>
         </div>
       </div>
     </div>                            
   </div>
-  <div class="movimentacoes">
+  <div class="mt-2">
     <div class="row">
       <div class="col-md-12">  
         <div class="card" style="width: 100%;">
           <div class="card-body">
-            <h5 class="card-title"><strong>Movimentações</strong></h5>
-            <h6 class="card-subtitle mb-2 text-muted" id="lblTipoConta">  
+            <div class="d-flex align-items-center pb-4">
+              <h5 class="text-secondary m-0 mr-2"><strong>Movimentações</strong></h5>
+              
+              <button type="button" (click)="abrirModal(modalFiltro)" class="btn btn-outline-primary" data-bs-toggle="tooltip" data-bs-placement="right" title="Filtros">
+                <i title="Filtrar Movimentações" class="bi bi-funnel"></i>
+              </button>
+
+            </div>
+
+            <h6 class="mb-2 text-muted" id="lblTipoConta">  
               Tipo: {{textoMovimentacao}}                              
             </h6> 
-            <h6 class="card-subtitle mb-2 text-muted" id="" *ngIf="dataInicio == dataFim">   
+            <h6 class="mb-2 text-muted" id="" *ngIf="dataInicio == dataFim">   
               Data: {{dataInicio | date:"dd/MM/yyyy"}}
             </h6> 
-            <h6 class="card-subtitle mb-2 text-muted" id="" *ngIf="dataInicio != dataFim">   
+            <h6 class="mb-2 text-muted" id="" *ngIf="dataInicio != dataFim">   
               Data Inicio: {{dataInicio | date:"dd/MM/yyyy"}}
             </h6> 
-            <h6 class="card-subtitle mb-2 text-muted" id="" *ngIf="dataInicio != dataFim">   
+            <h6 class="mb-4 text-muted" id="" *ngIf="dataInicio != dataFim">   
               Data Fim: {{dataFim | date:"dd/MM/yyyy"}}
             </h6> 
-            <div class="corpoMovimentacoes" id="corpoMovimentacoes">  
-              <div *ngIf="!!dashboard?.lancamentosExibidos?.length" class="centralizar">
-                <ng-container *ngFor="let lancamento of dashboard?.lancamentosExibidos; last as last">
-                  <div class="movimentacao"  >
-                    <h5 class="card-subtitle mb-3 tipoConta">
+            <div>
+              <div *ngIf="!!dashboard?.lancamentosExibidos?.length">
+                <ng-container *ngFor="let lancamento of dashboard?.lancamentosExibidos;">
+                  <div class="card mb-4 bg-primary text-light w-50" style="margin: 0 auto;">
+                    <h5 class="mb-3 p-2 bg-secondary">
                       <strong>{{lancamento.tipoConta}}</strong>
-                    </h5>                                                                                       
-                    <h6 class="card-subtitle mb-2">
-                      Valor: {{lancamento.valor | currency:"BRL"}}
-                    </h6>               
-                    <h6 class="card-subtitle mb-2">
-                      Descrição: {{lancamento.descricao}}
-                    </h6>               
-                    <h6 class="card-subtitle mb-2 ">
-                      Tipo de Movimentação: {{lancamento.tipo}}
-                    </h6>                                                                                                                                 
-                    <h6 class="card-subtitle mb-2 ">
-                      Data: {{lancamento.data | date:"dd/MM/yyyy"}}
-                    </h6>                            
-                  </div>
-                  <div *ngIf="!last">
-                    <div class="separador">
-                    </div>
+                    </h5>  
+                    <div class="px-2">
+                      <h6 class="mb-2">
+                        Valor: {{lancamento.valor | currency:"BRL"}}
+                      </h6>               
+                      <h6 class="mb-2">
+                        Descrição: {{lancamento.descricao}}
+                      </h6>               
+                      <h6 class="mb-2 ">
+                        Tipo de Movimentação: {{lancamento.tipo}}
+                      </h6>                                                                                                                                 
+                      <h6 class="mb-2 ">
+                        Data: {{lancamento.data | date:"dd/MM/yyyy"}}
+                      </h6>                            
+                    </div>                                                                                     
                   </div>
                 </ng-container>                        
               </div>  
               <div *ngIf="!!!dashboard?.lancamentosExibidos?.length">
-                <div class="movimentacao">
-                  <h5 class="card-subtitle tipoConta">
-                    <strong>Não há movimentações com os filtros informados</strong>
-                  </h5>                                                                                                         
+                <div class="p-4 text-center">
+                    <button type="button" (click)="abrirModal(modalFiltro)" class="btn btn-outline-primary">
+                      Não há movimentações com os filtros informados
+                    </button>
                 </div>
               </div>                    
             </div>                                
@@ -96,7 +104,7 @@
     </div>
   </div>
   <ng-template #modalFiltro let-modal>
-    <div class="modal-content">
+    <div class="modal-custom-content">
       <div class="modal-header">
         <h5 class="modal-title" id="">Filtro</h5>  
         <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
@@ -133,9 +141,9 @@
               </option>
             </select>
           </div>
-          <h4 class="aviso" id="" *ngIf="mostrarErroData">
+          <span class="text-danger" id="" *ngIf="mostrarErroData">
             A data inicial precisa ser anterior à data final
-          </h4>
+          </span>
         </form>          
       </div>
       <div class="modal-footer">                    
@@ -144,7 +152,7 @@
     </div> 
   </ng-template>  
   <ng-template #modalMovimentarConta let-modal>
-    <div class="modal-content">
+    <div class="modal-custom-content">
       <div class="modal-header">
         <h5 class="modal-title" id="">Movimentar conta</h5>  
         <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
@@ -208,14 +216,14 @@
     </div>    
   </ng-template>
   <ng-template #modalTransferenciaEntreContas let-modal>
-    <div class="modal-content">
+    <div class="modal-custom-content">
       <div class="modal-header ">
         <h5 class="modal-title" id="exampleModalLongTitle">Transfência entre contas</h5>    
         <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
           <span aria-hidden="true">&times;</span>
         </button>                                                           
       </div>
-      <div class="modal-body centralizado">
+      <div class="modal-body text-center">
         <form>
           <div class="form-group">
             <label>

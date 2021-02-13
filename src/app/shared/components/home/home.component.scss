@@ -1,25 +1,22 @@
-.cabra {
+.container-parallax {
+  background: url("../../../../assets/img/nordeste.jpg");
+  opacity: 0.7;
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  background-attachment: fixed !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+
+  .home-title {
     margin-top: 20%;
+
+    h1 {
+      font-weight: 400;
+      font-size: 3rem;
+      text-shadow: 5px 4px 5px black;
+      max-width: 50vw;
+    }
   }
-  
-  .cabra h1 {
-    font-weight: 400;
-    font-size: 65px;
-    text-shadow: 5px 4px 5px black;
-  }
-  
-  .container-parallax {
-    color: #fff;
-    height: 100vh;
-    display: flex;
-    background-attachment: fixed !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-  }
-  
-  .bg-img--version--1 {
-    background: url("../../../../assets/img/nordeste.jpg");
-    opacity: 0.7;
-  }
-  
+}
