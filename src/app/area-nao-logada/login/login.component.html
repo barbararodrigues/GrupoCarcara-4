@@ -15,7 +15,7 @@
             <input autocomplete="username" type="text" class="form-control" placeholder="Usuário" [(ngModel)]="usuario"
               name="usuario" required [class.is-invalid]="exibeErro('usuario',form)" #usuarioInput>
             <div class="invalid-feedback">
-              Usuário invalido
+              Usuário inválido!
             </div>
 
           </div>
@@ -23,14 +23,14 @@
             <input autocomplete="current-password" type="password" class="form-control" placeholder="Senha"
               [(ngModel)]="senha" name="senha" required [class.is-invalid]="exibeErro('senha',form)" #senhaInput>
             <div class="invalid-feedback">
-              Senha invalida
+              Senha inválida!     
             </div>
           </div>
 
           <div style="height: 30px">
             <div *ngIf="erorNoLogin" class="text-danger">
               <i title="Erro" class="bi bi-exclamation-triangle pr-2"></i>
-              <span>Confira seu usuário e senha</span>
+              <span>Usuário ou senha incorretos!</span>
             </div>
           </div>
 
