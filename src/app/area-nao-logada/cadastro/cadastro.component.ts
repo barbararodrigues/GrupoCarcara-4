@@ -30,6 +30,8 @@ export class CadastroComponent implements OnInit {
   erorNoCadastro: boolean = false;
 
   ngOnInit(): void {
+
+    
   }
 
   onSubmit(form: NgForm) {
@@ -82,6 +84,29 @@ export class CadastroComponent implements OnInit {
     return false;
   }
 
+  verificaResenha(): boolean {
+    try {
+      if (this.senha != this.resenha) {
+        return true;
+      }
+    } catch (error) {
+      console.log(`Erro no método: verificaResenha.Cadastro: ${error}`);
+    }
+    return false;
+  }
+
+  verificaForm(form: NgForm): boolean {
+    try {
+      if (!form.invalid) {
+        return true;
+      }
+    } catch (error) {
+      console.log(`Erro no método: verificaResenha.Cadastro: ${error}`);
+    }
+    return false;
+  }
+
+  
   onSuccessCadastro(response: CadastroResponse) {
     try {
       this.route.navigate(['dashboard']);
