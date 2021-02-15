@@ -1,0 +1,31 @@
+.modal-custom-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
+    outline: 0;
+}
+
+.content-top--button{
+    position: fixed;
+    right: 40px;
+    bottom: 10px;
+    background-color: #F4B130;
+    border-radius: 100px;
+    padding: 10px;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    transition: 1s;
+}
+
+.icon-add{
+    margin: -17px;
+    font-size: 43px;
+    color: #fff;
+}

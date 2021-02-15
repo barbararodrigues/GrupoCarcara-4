@@ -1,41 +1,120 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Plano de Conta</th>
-      <th>Opções</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- <tr *ngFor="let planoconta of planosconta">
+
+
+<div class="container-fluid">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Descrição</th>
+        <th>Login</th>
+        <th>Tipo Operação</th>
+        <th>Opções</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- <tr *ngFor="let planoconta of planosconta">
           <td>{{ planoconta.name }}</td>
           <td>
-              <a [routerLink]="['/courses/info', course.id]" class="btn btn-primary mr-2">Edit</a>
-              <button (click)="deleteById(course.id)" class="btn btn-danger">Delete</button>
+              <button class="btn btn-primary mr-2" (click)="abrirModal(modalPlanoConta)"><i class="bi bi-eye"></i></button>
+              <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
           </td>
       </tr> -->
-    <tr>
-      <td>Plano Conta 1</td>
-      <td>
-        <a class="btn btn-primary mr-2">Editar</a>
-        <button class="btn btn-danger">Deletar</button>
-      </td>
-    </tr>
-    <tr>
+      <tr>
+        <td>1</td>
+        <td>Plano Conta 1</td>
+        <td>barbara</td>
+        <td>Despesa</td>
+        <td>
+          <button class="btn btn-primary mr-2" (click)="abrirModal(modalPlanoConta)"><i class="bi bi-eye"></i></button>
+          <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+        </td>
+      </tr>
+      <tr>
 
-      <td>Plano Conta 2</td>
-      <td>
-        <a class="btn btn-primary mr-2">Editar</a>
-        <button class="btn btn-danger">Deletar</button>
-      </td>
-    </tr>
-    <tr>
+        <td>2</td>
+        <td>Plano Conta 2</td>
+        <td>barbara</td>
+        <td>Despesa</td>
+        <td>
+          <button class="btn btn-primary mr-2" (click)="abrirModal(modalPlanoConta)"><i class="bi bi-eye"></i></button>
+          <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+        </td>
+      </tr>
+      <tr>
 
-      <td>Plano Conta 3</td>
-      <td>
-        <a class="btn btn-primary mr-2">Editar</a>
-        <button class="btn btn-danger">Deletar</button>
-      </td>
-    </tr>
-  </tbody>
+        <td>3</td>
+        <td>Plano Conta 3</td>
+        <td>barbara</td>
+        <td>Receita</td>
+        <td>
+          <button class="btn btn-primary mr-2" (click)="abrirModal(modalPlanoConta)"><i class="bi bi-eye"></i></button>
+          <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+        </td>
+      </tr>
+    </tbody>
 
-</table>
+  </table>
+
+
+  <div class="content-top--button">
+    <button class="btn" (click)="abrirModal(modalPlanoConta)"><span class="icon-add"><i class="bi bi-plus"></i></span></button>
+</div>
+
+  <ng-template #modalPlanoConta let-modal>
+    <div class="modal-custom-content">
+      <div class="modal-header ">
+        <h5 class="modal-title" id="exampleModalLongTitle">Plano de Contas</h5>
+        <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <form #form="ngForm">
+          <div class="form-group">
+            <label>
+              Descrição
+            </label>
+            <input type="text" class="form-control" name="descricao" required
+              [class.is-invalid]="exibeErro('descricao',form)" #descricaoInput [(ngModel)]="inpDescricao">
+            <div class="invalid-feedback">
+              Por favor, insira a descrição!
+            </div>
+          </div>
+          <div class="form-group">
+            <label>
+              Login
+            </label>
+            <input type="text" class="form-control" name="login" required [class.is-invalid]="exibeErro('login', form)"
+              #loginInput [(ngModel)]="inpLogin">
+            <div class="invalid-feedback">
+              Por favor, insira o login!
+            </div>
+          </div>
+          <div class="form-group" name="groupTipoContaOperacao">
+            <label>
+              Conta
+            </label>
+            <select name="tipoContaOperacao" class="form-control" required
+              [class.is-invalid]="exibeErro('tipoContaOperacao',form)" #tipoContaOperacaoInput
+              [(ngModel)]="selTipoContaOperacao">
+              <option value="D">
+                Débito
+              </option>
+              <option value="C">
+                Crédito
+              </option>
+            </select>
+            <div class="invalid-feedback">
+              Por favor, escolha o tipo de conta!
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="save()">Cadastrar Plano de Conta</button>
+      </div>
+    </div>
+
+
+  </ng-template>
+</div>
