@@ -201,6 +201,14 @@
             <label>
               Tipo da Operação
             </label>
+            <!-- <select  name="tipoOperacao" class="form-control" required
+            [class.is-invalid]="exibeErro('tipoOperacao',form)" #tipoOperacaoInput [(ngModel)]="selTipoOperacao"
+            (change)="changeTipoOperacao()">
+            <option *ngFor="let planoconta of planoContas" value="planoconta.id">
+              {{planoconta.descricao}}
+            </option>
+       
+          </select> -->
             <select name="tipoOperacao" class="form-control" required
               [class.is-invalid]="exibeErro('tipoOperacao',form)" #tipoOperacaoInput [(ngModel)]="selTipoOperacao"
               (change)="changeTipoOperacao()">

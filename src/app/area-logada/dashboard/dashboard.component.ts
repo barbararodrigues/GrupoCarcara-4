@@ -1,5 +1,6 @@
+import { PlanoContaService } from './../plano-conta/plano-conta.service';
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { finalize } from 'rxjs/operators';
+import { finalize, toArray } from 'rxjs/operators';
 import { usuario } from 'src/app/shared/interfaces/usuario.interfaces';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { DatePipe } from '@angular/common';
@@ -12,6 +13,8 @@ import { Lancamento } from 'src/app/shared/interfaces/lancamento.interfaces';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LancamentoBody } from './interfaces/lancamento-body.interfaces';
 import { NgForm } from '@angular/forms';
+import { PlanoConta } from 'src/app/shared/interfaces/planoConta.interfaces';
+import { PlanoContaResponse } from '../plano-conta/interfaces/plano-conta.interfaces';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,6 +34,8 @@ export class DashboardComponent implements OnInit {
   dataFim: string | null = '';
   tipoMovimentacao: string | null = "3";
   textoMovimentacao: string = 'Todas';
+
+  planoContas: PlanoContaResponse[] = [];
 
 
   //Modais
@@ -60,6 +65,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private dashboardService: DashboardService,
+    private planoContaService: PlanoContaService,
     private datePipe: DatePipe,
     private loaderService: LoaderService,
     private modalService: NgbModal) { }
@@ -95,7 +101,21 @@ export class DashboardComponent implements OnInit {
           error => {
             alert(error.error.message);
           }
-        )
+        );
+
+    this.planoContaService.getPlanoConta()
+    .pipe(
+      toArray(),
+      finalize(() => {
+        this.loaderService.close();
+      })
+    )
+    .subscribe(
+      response => this.planoContas = response,
+      error => {
+        alert(error.error.message);
+      }
+    );
     }
     catch (error) {
       console.log(`Erro no método: atualizarDados.Dashboard: ${error}`);
