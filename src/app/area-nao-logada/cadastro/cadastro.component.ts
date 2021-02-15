@@ -109,7 +109,7 @@ export class CadastroComponent implements OnInit {
   
   onSuccessCadastro(response: CadastroResponse) {
     try {
-      this.route.navigate(['dashboard']);
+      this.route.navigate(['signedIn/dashboard']);
     }
     catch (error) {
       console.log(`Erro no método: onSuccessCadastro.Cadastro: ${error}`);
@@ -121,8 +121,8 @@ export class CadastroComponent implements OnInit {
       this.erorNoCadastro = true;
       this.estaCarregando = false;
     }
-    catch (error) {
-      console.log(`Erro no método: onErrorCadastro.Cadastro: ${error}`);
+    catch (catched_error) {
+      console.log(`Erro no método: onErrorCadastro.Cadastro: ${catched_error}`);
     }
   }
 
