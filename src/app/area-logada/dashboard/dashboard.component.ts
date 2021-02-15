@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { usuario } from 'src/app/shared/interfaces/usuario.interfaces';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
@@ -11,6 +11,7 @@ import { LoaderService } from 'src/app/shared/services/loader/loader.service';
 import { Lancamento } from 'src/app/shared/interfaces/lancamento.interfaces';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LancamentoBody } from './interfaces/lancamento-body.interfaces';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,7 +27,6 @@ export class DashboardComponent implements OnInit {
   idContaCredito: number | undefined;
 
   mostrarErroData: boolean = false;
-
   dataInicio: string | null = '';
   dataFim: string | null = '';
   tipoMovimentacao: string | null = "3";
@@ -52,6 +52,12 @@ export class DashboardComponent implements OnInit {
 
   //FimModais
 
+  //formInputs
+  @ViewChild('descricaoTransferencia') descricaoTransferencia: ElementRef | undefined
+  @ViewChild('valorTransferenciat') valorTransferencia: ElementRef | undefined
+  @ViewChild('dataTransferenciaInput') dataTransferenciaInput: ElementRef | undefined
+  @ViewChild('loginTransferenciaInput') loginTransferenciaInput: ElementRef | undefined
+
   constructor(private authService: AuthService,
     private dashboardService: DashboardService,
     private datePipe: DatePipe,
@@ -68,7 +74,6 @@ export class DashboardComponent implements OnInit {
 
       this.inpDataInicio = dataFormatada;
       this.inputDataFim = dataFormatada;
-
       this.atualizarDados();
     }
     catch (error) {
@@ -328,5 +333,19 @@ export class DashboardComponent implements OnInit {
       console.log(`Erro no método: realizarOperacao.Dashboard: ${error}`);
     }
   }
+
+  exibeErro(nomeControle: string, form: NgForm) {
+    try {
+      if (!form.controls[nomeControle]) {
+        return false;
+      }
+      return form.controls[nomeControle].invalid && form.controls[nomeControle].touched;
+    }
+    catch (error) {
+      console.log(`Erro no método: exibeErro.Dashboard: ${error}`);
+    }
+    return false;
+  }
+
 
 }

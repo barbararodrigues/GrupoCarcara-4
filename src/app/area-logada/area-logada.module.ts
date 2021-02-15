@@ -1,3 +1,4 @@
+import { PlanoContaComponent } from './plano-conta/plano-conta.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +11,8 @@ import { AreaLogadaComponent } from './area-logada.component';
 
 @NgModule({
   declarations: [
-    AreaLogadaComponent    
+    AreaLogadaComponent,
+    PlanoContaComponent   
   ],
   imports: [
     CommonModule,
