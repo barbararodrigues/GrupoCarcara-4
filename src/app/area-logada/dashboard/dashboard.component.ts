@@ -57,6 +57,8 @@ export class DashboardComponent implements OnInit {
 
   //FimModais
 
+  isVisible: boolean = false
+
   //formInputs
   @ViewChild('descricaoTransferencia') descricaoTransferencia: ElementRef | undefined
   @ViewChild('valorTransferenciat') valorTransferencia: ElementRef | undefined

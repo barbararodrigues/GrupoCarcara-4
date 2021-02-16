@@ -1,42 +1,83 @@
 <div class="container-fluid">
-  <div class="dashboard-header row p-3">
-    <h3 class="text-muted">
-      Olá {{usuario?.nome}}
-    </h3>
-    <div class="btn-group pb-3 pt-3 overflow-auto scroll" role="group" aria-label="Basic example">
-      <button type="button" (click)="atualizarDados()" class="btn btn-outline-primary">
-        <i title="Recarregar Dados" class="bi bi-arrow-repeat"></i>
-        <p class="m-0">Recarregar</p>
-      </button>
-      <button type="button" (click)="abrirModal(modalMovimentarConta)" class="btn btn-outline-primary">
-        <i title="Movimentar conta" class="bi bi-upc"></i>
-        <p class="m-0">Movimentar Conta</p>
-      </button>
-
-      <button type="button" (click)="abrirModal(modalTransferenciaEntreContas)" class="btn btn-outline-primary">
-        <i title="Realizar Transferência" class="bi bi-box-arrow-up"></i>
-        <p class="m-0">Realizar Transferência</p>
-      </button>
+  <div class="dashboard-header d-flex p-3">
+    <div class="d-flex text-muted align-items-start justify-content-start w-100">
+      <h3 class="pr-4" >Olá, {{ usuario?.nome }}</h3>
+      <div class="icon d-flex justify-content-center">
+        <i class="bi" [ngClass]="isVisible ? 'bi-eye-slash' : 'bi-eye'" (click)="isVisible = !isVisible"></i>
+      </div>
     </div>
+    <div
+      class="dashboard-toolbar-container"
+    >
+      <div
+        class="btn-group pb-3 pt-3 overflow-auto scroll dashboard-toolbar"
+        role="group"
+        aria-label="Basic example"
+      >
+        <button
+          type="button"
+          (click)="abrirModal(modalMovimentarConta)"
+          class="btn btn-outline-primary bg-white"
+        >
+          <i title="Movimentar conta" class="bi bi-upc"></i>
+          <p class="m-0">Movimentar Conta</p>
+        </button>
+
+        <button
+          type="button"
+          (click)="abrirModal(modalTransferenciaEntreContas)"
+          class="btn btn-outline-primary bg-white"
+        >
+        <img  class="m-2" src="../../../assets/pix.svg" alt="Realizar Transferência" srcset="">
+          <p class="m-0">Realizar Transferência</p>
+        </button>
+        <button
+          type="button"
+          (click)="atualizarDados()"
+          class="btn btn-outline-primary bg-white"
+        >
+          <i title="Recarregar Dados" class="bi bi-arrow-repeat"></i>
+          <p class="m-0">Recarregar</p>
+        </button>
+      </div>
+    </div>   
   </div>
 
   <div class="contas">
     <div class="row">
       <div class="col-md-6 d-flex mb-3">
-        <div class="card w-100">
+        <div class="card shadow-sm p-3 bg-body rounded w-100">
           <div class="card-body">
-            <h5 class="text-secondary"><strong>Conta Débito</strong></h5>
-            <h6 class="mb-2 text-muted" id="saldoContaDebito">Saldo: {{dashboard?.contaBanco?.saldo | currency:"BRL"}}
+            <div class="d-flex text-muted align-items-center">
+              <i class="bi bi-credit-card-2-front pr-3"></i>
+              <h5 class="m-0"><strong>Cartão de Crédito</strong></h5>
+            </div>
+            <div>
+              <p class="text-muted mt-3 mb-2">Fatura atual</p>
+              <h3 class="text-success" [ngClass]="isVisible ? 'hidden': ''">R$ 0,00</h3>
+            </div>
+            <h6 class="mb-2 text-muted" id="saldoContaCredito">
+              Limite disponível:
+              <span class="text-info" [ngClass]="isVisible ? 'hidden': ''">
+                {{ dashboard?.contaCredito?.saldo | currency: "BRL" }}
+              </span>
             </h6>
           </div>
         </div>
       </div>
       <div class="col-md-6 d-flex mb-3">
-        <div class="card w-100">
+        <div class="card shadow-sm p-3 bg-body rounded w-100">
           <div class="card-body">
-            <h5 class="text-secondary"><strong>Conta Crédito</strong></h5>
-            <h6 class="mb-2 text-muted" id="saldoContaCredito">Saldo: {{dashboard?.contaCredito?.saldo |
-              currency:"BRL"}}</h6>
+            <div class="d-flex text-muted align-items-center">
+              <i class="bi bi-cash pr-3"></i>
+              <h5 class="m-0"><strong>Conta Débito</strong></h5>
+            </div>
+            <div>
+              <p class="text-muted mt-3 mb-2">Saldo disponível</p>
+              <h3 class="text-dark" [ngClass]="isVisible ? 'hidden': ''">
+                {{ dashboard?.contaBanco?.saldo | currency: "BRL" }}
+              </h3>
+            </div>
           </div>
         </div>
       </div>
@@ -45,49 +86,61 @@
   <div class="mt-2">
     <div class="row">
       <div class="col-md-12">
-        <div class="card" style="width: 100%;">
+        <div class="card" style="width: 100%; margin-bottom: 50px">
           <div class="card-body">
             <div class="d-flex align-items-center pb-4">
-              <h5 class="text-secondary m-0 mr-2"><strong>Movimentações</strong></h5>
+              <h5 class="text-secondary m-0 mr-2">
+                <strong>Movimentações</strong>
+              </h5>
 
-              <button type="button" (click)="abrirModal(modalFiltro)" class="btn btn-outline-primary"
-                data-bs-toggle="tooltip" data-bs-placement="right" title="Filtros">
+              <button
+                type="button"
+                (click)="abrirModal(modalFiltro)"
+                class="btn btn-outline-primary"
+                data-bs-toggle="tooltip"
+                data-bs-placement="right"
+                title="Filtros"
+              >
                 <i title="Filtrar Movimentações" class="bi bi-funnel"></i>
               </button>
-
             </div>
 
             <h6 class="mb-2 text-muted" id="lblTipoConta">
-              Tipo: {{textoMovimentacao}}
+              Tipo: {{ textoMovimentacao }}
             </h6>
             <h6 class="mb-2 text-muted" id="" *ngIf="dataInicio == dataFim">
-              Data: {{dataInicio | date:"dd/MM/yyyy"}}
+              Data: {{ dataInicio | date: "dd/MM/yyyy" }}
             </h6>
             <h6 class="mb-2 text-muted" id="" *ngIf="dataInicio != dataFim">
-              Data Inicio: {{dataInicio | date:"dd/MM/yyyy"}}
+              Data Inicio: {{ dataInicio | date: "dd/MM/yyyy" }}
             </h6>
             <h6 class="mb-4 text-muted" id="" *ngIf="dataInicio != dataFim">
-              Data Fim: {{dataFim | date:"dd/MM/yyyy"}}
+              Data Fim: {{ dataFim | date: "dd/MM/yyyy" }}
             </h6>
             <div>
               <div *ngIf="!!dashboard?.lancamentosExibidos?.length">
-                <ng-container *ngFor="let lancamento of dashboard?.lancamentosExibidos;">
-                  <div class="card mb-4 bg-primary text-light w-50" style="margin: 0 auto;">
+                <ng-container
+                  *ngFor="let lancamento of dashboard?.lancamentosExibidos"
+                >
+                  <div
+                    class="card mb-4 bg-primary text-light"
+                    style="margin: 0 auto; max-width: 576px"
+                  >
                     <h5 class="mb-3 p-2 bg-secondary">
-                      <strong>{{lancamento.tipoConta}}</strong>
+                      <strong>{{ lancamento.tipoConta }}</strong>
                     </h5>
                     <div class="px-2">
                       <h6 class="mb-2">
-                        Valor: {{lancamento.valor | currency:"BRL"}}
+                        Valor: {{ lancamento.valor | currency: "BRL" }}
                       </h6>
                       <h6 class="mb-2">
-                        Descrição: {{lancamento.descricao}}
+                        Descrição: {{ lancamento.descricao }}
                       </h6>
-                      <h6 class="mb-2 ">
-                        Tipo de Movimentação: {{lancamento.tipo}}
+                      <h6 class="mb-2">
+                        Tipo de Movimentação: {{ lancamento.tipo }}
                       </h6>
-                      <h6 class="mb-2 ">
-                        Data: {{lancamento.data | date:"dd/MM/yyyy"}}
+                      <h6 class="mb-2">
+                        Data: {{ lancamento.data | date: "dd/MM/yyyy" }}
                       </h6>
                     </div>
                   </div>
@@ -95,7 +148,11 @@
               </div>
               <div *ngIf="!!!dashboard?.lancamentosExibidos?.length">
                 <div class="p-4 text-center">
-                  <button type="button" (click)="abrirModal(modalFiltro)" class="btn btn-outline-primary">
+                  <button
+                    type="button"
+                    (click)="abrirModal(modalFiltro)"
+                    class="btn btn-outline-primary"
+                  >
                     Não há movimentações com os filtros informados
                   </button>
                 </div>
@@ -110,38 +167,45 @@
     <div class="modal-custom-content">
       <div class="modal-header">
         <h5 class="modal-title" id="">Filtro</h5>
-        <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="fecharModal()"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form #form="ngForm">
           <div class="form-group">
-            <label>
-              Data Inicial
-            </label>
-            <input type="date" class="form-control" name="dataInicio" [(ngModel)]="inpDataInicio">
+            <label> Data Inicial </label>
+            <input
+              type="date"
+              class="form-control"
+              name="dataInicio"
+              [(ngModel)]="inpDataInicio"
+            />
           </div>
           <div class="form-group">
-            <label>
-              Data Final
-            </label>
-            <input type="date" class="form-control" name="dataFim" [(ngModel)]="inputDataFim">
+            <label> Data Final </label>
+            <input
+              type="date"
+              class="form-control"
+              name="dataFim"
+              [(ngModel)]="inputDataFim"
+            />
           </div>
           <div class="form-group">
-            <label>
-              Tipo de Conta
-            </label>
-            <select name="seltipoConta" class="form-control" [(ngModel)]="seltipoConta">
-              <option value="3">
-                Todas
-              </option>
-              <option value="2">
-                Débito
-              </option>
-              <option value="1">
-                Crédito
-              </option>
+            <label> Tipo de Conta </label>
+            <select
+              name="seltipoConta"
+              class="form-control"
+              [(ngModel)]="seltipoConta"
+            >
+              <option value="3">Todas</option>
+              <option value="2">Débito</option>
+              <option value="1">Crédito</option>
             </select>
           </div>
           <span class="text-danger" id="" *ngIf="mostrarErroData">
@@ -150,7 +214,9 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary"  (click)="salvarFiltro()">Salvar Filtro</button>
+        <button type="button" class="btn btn-primary" (click)="salvarFiltro()">
+          Salvar Filtro
+        </button>
       </div>
     </div>
   </ng-template>
@@ -158,49 +224,66 @@
     <div class="modal-custom-content">
       <div class="modal-header">
         <h5 class="modal-title" id="">Movimentar conta</h5>
-        <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="fecharModal()"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form #form="ngForm">
           <div class="form-group">
-            <label>
-              Descrição
-            </label>
-            <input type="text" class="form-control" name="descricaoOperacao" required
-              [class.is-invalid]="exibeErro('descricaoOperacao',form)" #descricaoOperacaoInput
-              [(ngModel)]="inpDescricaoOperacao">
-              <div class="invalid-feedback">
-                Por favor, insira a descrição!
-              </div>
+            <label> Descrição </label>
+            <input
+              type="text"
+              class="form-control"
+              name="descricaoOperacao"
+              required
+              [class.is-invalid]="exibeErro('descricaoOperacao', form)"
+              #descricaoOperacaoInput
+              [(ngModel)]="inpDescricaoOperacao"
+            />
+            <div class="invalid-feedback">Por favor, insira a descrição!</div>
           </div>
           <div class="form-group">
-            <label>
-              Valor
-            </label>
-            <input class="form-control"
-             [class.is-invalid]="exibeErro('valorOperacao',form)" #valorOperacaoInput [(ngModel)]="inpValorOperacao"
-             currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
-             >
+            <label> Valor </label>
+            <input
+              class="form-control"
+              [class.is-invalid]="exibeErro('valorOperacao', form)"
+              #valorOperacaoInput
+              [(ngModel)]="inpValorOperacao"
+              currencyMask
+              [options]="{
+                prefix: 'R$ ',
+                thousands: '.',
+                decimal: ',',
+                align: 'left'
+              }"
+            />
             <div class="invalid-feedback">
               Por favor, insira o valor da operação!
             </div>
           </div>
           <div class="form-group">
-            <label>
-              Data Operação
-            </label>
-            <input type="date" class="form-control" name="dataOperacao" required
-              [class.is-invalid]="exibeErro('dataOperacao',form)" #dataOperacaoInput [(ngModel)]="inpDataOperacao">
+            <label> Data Operação </label>
+            <input
+              type="date"
+              class="form-control"
+              name="dataOperacao"
+              required
+              [class.is-invalid]="exibeErro('dataOperacao', form)"
+              #dataOperacaoInput
+              [(ngModel)]="inpDataOperacao"
+            />
             <div class="invalid-feedback">
               Por favor, insira a data da operação!
             </div>
           </div>
           <div class="form-group">
-            <label>
-              Tipo da Operação
-            </label>
+            <label> Tipo da Operação </label>
             <!-- <select  name="tipoOperacao" class="form-control" required
             [class.is-invalid]="exibeErro('tipoOperacao',form)" #tipoOperacaoInput [(ngModel)]="selTipoOperacao"
             (change)="changeTipoOperacao()">
@@ -209,15 +292,17 @@
             </option>
        
           </select> -->
-            <select name="tipoOperacao" class="form-control" required
-              [class.is-invalid]="exibeErro('tipoOperacao',form)" #tipoOperacaoInput [(ngModel)]="selTipoOperacao"
-              (change)="changeTipoOperacao()">
-              <option value="25">
-                Recebimento
-              </option>
-              <option value="26">
-                Despesa
-              </option>
+            <select
+              name="tipoOperacao"
+              class="form-control"
+              required
+              [class.is-invalid]="exibeErro('tipoOperacao', form)"
+              #tipoOperacaoInput
+              [(ngModel)]="selTipoOperacao"
+              (change)="changeTipoOperacao()"
+            >
+              <option value="25">Recebimento</option>
+              <option value="26">Despesa</option>
               <option value="27">
                 Transferência de conta débito para crédito
               </option>
@@ -226,19 +311,22 @@
               Por favor, escolha o tipo de operação!
             </div>
           </div>
-          <div class="form-group" name="groupTipoContaOperacao" *ngIf="selTipoOperacao != '27'">
-            <label>
-              Conta
-            </label>
-            <select name="tipoContaOperacao" class="form-control" required
-              [class.is-invalid]="exibeErro('tipoContaOperacao',form)" #tipoContaOperacaoInput
-              [(ngModel)]="selTipoContaOperacao">
-              <option value="Debito">
-                Débito
-              </option>
-              <option value="Credito">
-                Crédito
-              </option>
+          <div
+            class="form-group"
+            name="groupTipoContaOperacao"
+            *ngIf="selTipoOperacao != '27'"
+          >
+            <label> Conta </label>
+            <select
+              name="tipoContaOperacao"
+              class="form-control"
+              required
+              [class.is-invalid]="exibeErro('tipoContaOperacao', form)"
+              #tipoContaOperacaoInput
+              [(ngModel)]="selTipoContaOperacao"
+            >
+              <option value="Debito">Débito</option>
+              <option value="Credito">Crédito</option>
             </select>
             <div class="invalid-feedback">
               Por favor, escolha o tipo de conta!
@@ -247,70 +335,108 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="realizarOperacao()">Realizar Operação</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="form.invalid"
+          (click)="realizarOperacao()"
+        >
+          Realizar Operação
+        </button>
       </div>
     </div>
   </ng-template>
   <ng-template #modalTransferenciaEntreContas let-modal>
     <div class="modal-custom-content">
-      <div class="modal-header ">
-        <h5 class="modal-title" id="exampleModalLongTitle">Transfência entre contas</h5>
-        <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">
+          Qual é o valor da transferência?
+        </h5>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="fecharModal()"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body text-center">
         <form #form="ngForm">
           <div class="form-group">
-            <label>
-              Descrição
-            </label>
-            <input type="text" class="form-control" name="descricaoTransferencia" required
-              [class.is-invalid]="exibeErro('descricaoTransferencia',form)" #descricaoTransferenciaInput
-              [(ngModel)]="inpDescricaoTransferencia">
-            <div class="invalid-feedback">
-              Por favor, insira a descrição!
-            </div>
+            <label> Descrição </label>
+            <input
+              type="text"
+              class="form-control"
+              name="descricaoTransferencia"
+              required
+              [class.is-invalid]="exibeErro('descricaoTransferencia', form)"
+              #descricaoTransferenciaInput
+              [(ngModel)]="inpDescricaoTransferencia"
+            />
+            <div class="invalid-feedback">Por favor, insira a descrição!</div>
           </div>
           <div class="form-group">
-            <label>
-              Valor
-            </label>
-            <input class="form-control" name="valorTransferencia" required
-              [class.is-invalid]="exibeErro('valorTransferencia',form)" #valorTransferenciaInput
+            <label> Valor </label>
+            <input
+              class="form-control"
+              name="valorTransferencia"
+              required
+              [class.is-invalid]="exibeErro('valorTransferencia', form)"
+              #valorTransferenciaInput
               [(ngModel)]="inpValorTransferencia"
-              currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }">
+              currencyMask
+              [options]="{
+                prefix: 'R$ ',
+                thousands: '.',
+                decimal: ',',
+                align: 'left'
+              }"
+            />
             <div class="invalid-feedback">
               Por favor, insira o valor da transação!
             </div>
           </div>
           <div class="form-group">
-            <label>
-              Data Operação
-            </label>
-            <input type="date" class="form-control" min="dataAtual()" name="dataTransferencia" required
-              [class.is-invalid]="exibeErro('dataTransferencia', form)" #dataTransferenciaInput
-              [(ngModel)]="inpDataTransferencia">
+            <label> Data Operação </label>
+            <input
+              type="date"
+              class="form-control"
+              min="dataAtual()"
+              name="dataTransferencia"
+              required
+              [class.is-invalid]="exibeErro('dataTransferencia', form)"
+              #dataTransferenciaInput
+              [(ngModel)]="inpDataTransferencia"
+            />
             <div class="invalid-feedback">
               Por favor, insira a data de Operação!
             </div>
           </div>
           <div class="form-group">
-            <label>
-              Login da conta para transferir
-            </label>
-            <input type="text" class="form-control" name="loginTransferencia" required
-              [class.is-invalid]="exibeErro('loginTransferencia', form)" #loginTransferenciaInput
-              [(ngModel)]="inpLoginTransferencia">
-            <div class="invalid-feedback">
-              Por favor, insira o login!
-            </div>
+            <label> Login da conta para transferir </label>
+            <input
+              type="text"
+              class="form-control"
+              name="loginTransferencia"
+              required
+              [class.is-invalid]="exibeErro('loginTransferencia', form)"
+              #loginTransferenciaInput
+              [(ngModel)]="inpLoginTransferencia"
+            />
+            <div class="invalid-feedback">Por favor, insira o login!</div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" [disabled]="form.invalid"
-          (click)="realizarTransferencia()">Realizar Transferência</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="form.invalid"
+          (click)="realizarTransferencia()"
+        >
+          Realizar Transferência
+        </button>
       </div>
     </div>
   </ng-template>
