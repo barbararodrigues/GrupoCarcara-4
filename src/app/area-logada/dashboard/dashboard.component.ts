@@ -105,7 +105,6 @@ export class DashboardComponent implements OnInit {
 
     this.planoContaService.getPlanoConta()
     .pipe(
-      toArray(),
       finalize(() => {
         this.loaderService.close();
       })

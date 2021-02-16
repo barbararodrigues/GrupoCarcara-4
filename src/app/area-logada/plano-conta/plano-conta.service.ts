@@ -12,24 +12,35 @@ export class PlanoContaService {
 
   constructor(private HttpClient: HttpClient, private authService: AuthService) { }
 
-  getPlanoConta(): Observable<PlanoContaResponse> {
-    return this.HttpClient.get<PlanoContaResponse>(environment.baseURL + '/plano-contas', {
-      headers: {
-        'Authorization': this.authService.getToken()!,
-      },
+   getPlanoConta(): Observable<PlanoContaResponse[]> {
+    return this.HttpClient.get<PlanoContaResponse[]>(environment.baseURL + '/planoconta', {
+      // headers: {
+      //   'Authorization': this.authService.getToken()!,
+      // },
       params: {
-        login: this.authService.getUsuario()!.login,
+        // login: this.authService.getUsuario()!.login,
+        login :'barbara'
       }
     });
   };
 
-  save(body: PlanoConta) : Observable<any> {
-    return this.HttpClient.post(environment.baseURL + "/plano-conta", body, {
-      headers: {
-        'Authorization': this.authService.getToken()!,
-      }
+
+  save(body: any) : Observable<any> {
+    return this.HttpClient.post(environment.baseURL + "/planoconta", body, {
+      // headers: {
+      //   'Authorization': this.authService.getToken()!,
+      // }
     })            
   };
+
+
+  put(body:any, id: number){
+    return this.HttpClient.put(environment.baseURL + "/planoconta/"+id, body, {
+      // headers: {
+      //   'Authorization': this.authService.getToken()!,
+      // }
+    })   
+  }
 
 
   delete(id: number){

@@ -1,7 +1,9 @@
 export interface PlanoConta {
+    id: number;
     descricao: String;
     login: String;
     tipo_Lancamento: string;
+    ativo: boolean;
 
 }
 
@@ -10,5 +12,6 @@ export interface PlanoContaResponse {
     descricao: String;
     login: String;
     tipo_Lancamento: string;
+    ativo: boolean;
 
 }

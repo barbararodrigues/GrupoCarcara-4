@@ -1,55 +1,24 @@
 
 
 <div class="container-fluid">
-  <table class="table table-striped">
+  <table *ngIf="planoContas" class="table table-striped">
     <thead>
       <tr>
-        <th>Id</th>
+
         <th>Descrição</th>
-        <th>Login</th>
         <th>Tipo Operação</th>
         <th>Opções</th>
       </tr>
     </thead>
     <tbody>
-      <!-- <tr *ngFor="let planoconta of planosconta">
-          <td>{{ planoconta.name }}</td>
+      <tr *ngFor="let planoconta of planoContas">
+          <td>{{ planoconta.descricao }}</td>
+          <td>{{ planoconta.tipo_Lancamento === 'RECEITA'?  'Receita' : 'Despesa'}}</td>
+        
           <td>
-              <button class="btn btn-primary mr-2" (click)="abrirModal(modalPlanoConta)"><i class="bi bi-eye"></i></button>
+              <button class="btn btn-primary mr-2" (click)="abrirModal(modalPlanoConta, planoconta.id)"><i class="bi bi-eye"></i></button>
               <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
           </td>
-      </tr> -->
-      <tr>
-        <td>1</td>
-        <td>Plano Conta 1</td>
-        <td>barbara</td>
-        <td>Despesa</td>
-        <td>
-          <button class="btn btn-primary mr-2" (click)="abrirModal(modalPlanoConta)"><i class="bi bi-eye"></i></button>
-          <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-        </td>
-      </tr>
-      <tr>
-
-        <td>2</td>
-        <td>Plano Conta 2</td>
-        <td>barbara</td>
-        <td>Despesa</td>
-        <td>
-          <button class="btn btn-primary mr-2" (click)="abrirModal(modalPlanoConta)"><i class="bi bi-eye"></i></button>
-          <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-        </td>
-      </tr>
-      <tr>
-
-        <td>3</td>
-        <td>Plano Conta 3</td>
-        <td>barbara</td>
-        <td>Receita</td>
-        <td>
-          <button class="btn btn-primary mr-2" (click)="abrirModal(modalPlanoConta)"><i class="bi bi-eye"></i></button>
-          <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
-        </td>
       </tr>
     </tbody>
 
@@ -57,7 +26,7 @@
 
 
   <div class="content-top--button">
-    <button class="btn" (click)="abrirModal(modalPlanoConta)"><span class="icon-add"><i class="bi bi-plus"></i></span></button>
+    <button class="btn" (click)="abrirModal(modalPlanoConta, 0)"><span class="icon-add"><i class="bi bi-plus"></i></span></button>
 </div>
 
   <ng-template #modalPlanoConta let-modal>
@@ -80,16 +49,6 @@
               Por favor, insira a descrição!
             </div>
           </div>
-          <div class="form-group">
-            <label>
-              Login
-            </label>
-            <input type="text" class="form-control" name="login" required [class.is-invalid]="exibeErro('login', form)"
-              #loginInput [(ngModel)]="inpLogin">
-            <div class="invalid-feedback">
-              Por favor, insira o login!
-            </div>
-          </div>
           <div class="form-group" name="groupTipoContaOperacao">
             <label>
               Conta
@@ -97,11 +56,11 @@
             <select name="tipoContaOperacao" class="form-control" required
               [class.is-invalid]="exibeErro('tipoContaOperacao',form)" #tipoContaOperacaoInput
               [(ngModel)]="selTipoContaOperacao">
-              <option value="D">
-                Débito
+              <option value="R">
+                Receita
               </option>
-              <option value="C">
-                Crédito
+              <option value="D">
+                Despesa
               </option>
             </select>
             <div class="invalid-feedback">

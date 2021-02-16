@@ -16,6 +16,7 @@ export class CadastroService {
 
   cadastrar(credenciais: CadastroCredenciais) {
     return this.HttpClient.post<CadastroResponse>(environment.baseURL + '/usuarios', credenciais)
+    // return this.HttpClient.post<CadastroResponse>(environment.baseURL + '/user', credenciais)
     .pipe(
       mergeMap(() => {
         return this.LoginService.logar({
