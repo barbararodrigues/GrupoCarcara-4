@@ -3,7 +3,6 @@ export interface LancamentoBody {
     "contaDestino": string,
     "data": string,
     "descricao": string,
-    "login": string,
     "planoConta": number,
     "valor": number
 };

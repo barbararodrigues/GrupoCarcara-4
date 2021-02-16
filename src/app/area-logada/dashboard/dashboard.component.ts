@@ -45,15 +45,15 @@ export class DashboardComponent implements OnInit {
   seltipoConta: string | null = "3";
 
   inpDescricaoOperacao: string = "";
-  inpValorOperacao: string = "0";
+  inpValorOperacao: string = "100";
   inpDataOperacao: string = "";
   selTipoOperacao: string = "";
   selTipoContaOperacao: string = "";
 
   inpDescricaoTransferencia: string = "";
-  inpValorTransferencia: string = "0";
+  inpValorTransferencia: string = "100";
   inpDataTransferencia: string = "";
-  inpLoginTransferencia: string = "";
+  inpContaTransferencia: string = "";
 
   //FimModais
 
@@ -72,7 +72,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     try {
-      this.usuario = this.authService.getUsuario();
+      // this.usuario = this.authService.getUsuario();
       let dataAtual = new Date(),
         dataFormatada = this.datePipe.transform(dataAtual, "yyyy-MM-dd");
       this.dataInicio = dataFormatada;
@@ -116,6 +116,7 @@ export class DashboardComponent implements OnInit {
       }
     );
     }
+  
     catch (error) {
       console.log(`Erro no método: atualizarDados.Dashboard: ${error}`);
     }
@@ -262,7 +263,7 @@ export class DashboardComponent implements OnInit {
       else {
         this.loaderService.open();
         //Aqui podemos continuar com a operação  
-        let login = this.authService.getUsuario()!.login;
+      //  let login = this.authService.getUsuario()!.login;
         let idConta = 0;
         if (this.selTipoContaOperacao == "Credito") {
           idConta = this.idContaCredito as number;
@@ -274,9 +275,8 @@ export class DashboardComponent implements OnInit {
         let body: LancamentoBody = {
           "conta": idConta,
           "contaDestino": "",
-          "data": this.inpDataOperacao as string,
+          "data": this.inpDataOperacao.replace("T", " ") as string,
           "descricao": this.inpDescricaoOperacao as string,
-          "login": login,
           "planoConta": Number(this.selTipoOperacao),
           "valor": Number(this.inpValorOperacao)
         };
@@ -294,6 +294,7 @@ export class DashboardComponent implements OnInit {
             },
             error => {
               alert(error.error.message);
+              this.fecharModal();
             }
           )
       }
@@ -313,22 +314,20 @@ export class DashboardComponent implements OnInit {
       }
       else if (!this.inpValorTransferencia) {
         alert("Data não pode ficar vazia");
-      } else if (!this.inpLoginTransferencia) {
-        alert("Login da conta para transferir não pode ficar vazio");
+      } else if (!this.inpContaTransferencia) {
+        alert("Número da conta para transferir não pode ficar vazio");
       }
       else {
         this.loaderService.open();
         //Aqui podemos continuar com a operação
-        let login = this.authService.getUsuario()!.login;
         let idConta = this.idContaCredito as number;
 
         let body: LancamentoBody = {
           "conta": idConta,
-          "contaDestino": this.inpLoginTransferencia,
+          "contaDestino": this.inpContaTransferencia,
           "data": this.inpDataTransferencia as string,
           "descricao": this.inpDescricaoTransferencia as string,
-          "login": login,
-          "planoConta": 28,
+          "planoConta": Number(this.selTipoOperacao),
           "valor": Number(this.inpValorTransferencia)
         };
 
@@ -340,7 +339,7 @@ export class DashboardComponent implements OnInit {
               this.inpDescricaoTransferencia = "";
               this.inpValorTransferencia = "0";
               this.inpDataTransferencia = "";
-              this.inpLoginTransferencia = "";
+              this.inpContaTransferencia = "";
             },
             error => {
               alert(error.error.message);
