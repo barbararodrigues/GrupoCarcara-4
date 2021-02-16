@@ -52,10 +52,7 @@ export class PlanoContaComponent implements OnInit {
       })
     )
     .subscribe( 
-      response => {this.planoContas = response.filter(f=> f.ativo === true);
-
-      
-      
+      response => this.planoContas = response.filter(f=> f.ativo === true),
       error => {
         alert(error.error.message);
       }
