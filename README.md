@@ -1,7 +1,7 @@
 <div align="center">
-
+  <img width="160px" src="./assets/img/logo.png"/>
   
-  <h2> Projeto Final - Front End</h2>
+  <h2> Projeto Final - FrontEnd </h2>
 </div>
 
 <div align="center">
@@ -23,14 +23,14 @@ consulte os lançamentos.
 
 Aplicação Banco Carcará:
 
-- Front End - Angular 
+- Front End - Angular - Acesse aqui [Banco Carcará](https://grupocarcara-4.netlify.app/home).
 
 
 ## Projeto
 
 Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.academy/).
 
-# Tecnologias utilizadas
+## Tecnologias utilizadas
 
 - Angular v11.1.1
 - Html
@@ -39,7 +39,7 @@ Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.aca
 
 
 
-# 💻 Made by
+## 💻 Made by
 - Wesley Vicente `(Development)`  [LinkedIn](https://www.linkedin.com/in/wesleyvicen/)
 - Renan Alencar `(Development)`  [LinkedIn](https://www.linkedin.com/in/renancostaalencar/)
 - Gabriel Botelho `(Development)`  [LinkedIn](https://www.linkedin.com/in/gabriel-carreiras-botelho-867158151/)
