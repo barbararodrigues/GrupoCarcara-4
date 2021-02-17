@@ -13,7 +13,7 @@
     <tbody>
       <tr *ngFor="let planoconta of planoContas">
           <td>{{ planoconta.descricao }}</td>
-          <td>{{ planoconta.tipo_Lancamento === 'RECEITA'?  'Receita' : 'Despesa'}}</td>
+          <td>{{ planoconta.tipoLancamento }}</td>
         
           <td>
               <button class="btn btn-primary mr-2" (click)="abrirModal(modalPlanoConta, planoconta.id)"><i class="bi bi-eye"></i></button>
@@ -65,7 +65,7 @@
               <option value="TC">
                 Trasnferências em Contas
               </option>
-              <option value="TD">
+              <option value="TU">
                 Transferências em Usuários
               </option>
             </select>

@@ -24,6 +24,20 @@ export class PlanoContaService {
     });
   };
 
+  getPlanoContaTipoLancamento(tipoLancamento: string): Observable<PlanoContaResponse[]> {
+    return this.HttpClient.get<PlanoContaResponse[]>(environment.baseURL + '/planoconta/param', {
+      // headers: {
+      //   'Authorization': this.authService.getToken()!,
+      // },
+      params: {
+        // login: this.authService.getUsuario()!.login,
+        login :'barbara',
+        tipoLancamento
+
+      }
+    });
+  };
+
 
   save(body: any) : Observable<any> {
     return this.HttpClient.post(environment.baseURL + "/planoconta", body, {
