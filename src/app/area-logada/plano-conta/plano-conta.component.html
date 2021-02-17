@@ -1,10 +1,7 @@
-
-
 <div class="container-fluid">
-  <table *ngIf="planoContas" class="table table-striped">
+  <table *ngIf="planoContas" class="table table-striped text-muted">
     <thead>
       <tr>
-
         <th>Descrição</th>
         <th>Tipo Operação</th>
         <th>Opções</th>
@@ -12,62 +9,76 @@
     </thead>
     <tbody>
       <tr *ngFor="let planoconta of planoContas">
-          <td>{{ planoconta.descricao }}</td>
-          <td>{{ planoconta.tipoLancamento }}</td>
-        
-          <td>
-              <button class="btn btn-primary mr-2" (click)="abrirModal(modalPlanoConta, planoconta.id)"><i class="bi bi-eye"></i></button>
-              <button class="btn btn-danger"(click)="deletePlanoConta(planoconta.id)"><i class="bi bi-trash"></i></button>
-          </td>
+        <td>{{ planoconta.descricao }}</td>
+        <td>{{ planoconta.tipoLancamento }}</td>
+
+        <td>
+          <button
+            class="btn btn-outline-primary mr-2"
+            (click)="abrirModal(modalPlanoConta, planoconta.id)"
+          >
+            <i class="bi bi-pencil-square"></i>
+          </button>
+          <button
+            class="btn btn-outline-danger"
+            (click)="deletePlanoConta(planoconta.id)"
+          >
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
       </tr>
     </tbody>
-
   </table>
 
-
-  <div class="content-top--button">
-    <button class="btn" (click)="abrirModal(modalPlanoConta, 0)"><span class="icon-add"><i class="bi bi-plus"></i></span></button>
-</div>
+  <button
+    class="btn btn-primary content-top--button"
+    (click)="abrirModal(modalPlanoConta, 0)"
+  >
+    <i class="bi bi-plus"></i>
+  </button>
 
   <ng-template #modalPlanoConta let-modal>
     <div class="modal-custom-content">
-      <div class="modal-header ">
+      <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Plano de Contas</h5>
-        <button type="button" class="close" aria-label="Close" (click)="fecharModal()">
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="fecharModal()"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body text-center">
         <form #form="ngForm">
           <div class="form-group">
-            <label>
-              Descrição
-            </label>
-            <input type="text" class="form-control" name="descricao" required
-              [class.is-invalid]="exibeErro('descricao',form)" #descricaoInput [(ngModel)]="inpDescricao">
-            <div class="invalid-feedback">
-              Por favor, insira a descrição!
-            </div>
+            <label> Descrição </label>
+            <input
+              type="text"
+              class="form-control"
+              name="descricao"
+              required
+              [class.is-invalid]="exibeErro('descricao', form)"
+              #descricaoInput
+              [(ngModel)]="inpDescricao"
+            />
+            <div class="invalid-feedback">Por favor, insira a descrição!</div>
           </div>
           <div class="form-group" name="groupTipoContaOperacao">
-            <label>
-              Conta
-            </label>
-            <select name="tipoContaOperacao" class="form-control" required
-              [class.is-invalid]="exibeErro('tipoContaOperacao',form)" #tipoContaOperacaoInput
-              [(ngModel)]="selTipoContaOperacao">
-              <option value="R">
-                Receita
-              </option>
-              <option value="D">
-                Despesa
-              </option>
-              <option value="TC">
-                Trasnferências em Contas
-              </option>
-              <option value="TU">
-                Transferências em Usuários
-              </option>
+            <label> Conta </label>
+            <select
+              name="tipoContaOperacao"
+              class="form-control"
+              required
+              [class.is-invalid]="exibeErro('tipoContaOperacao', form)"
+              #tipoContaOperacaoInput
+              [(ngModel)]="selTipoContaOperacao"
+            >
+              <option value="R">Receita</option>
+              <option value="D">Despesa</option>
+              <option value="TC">Trasnferências em Contas</option>
+              <option value="TU">Transferências em Usuários</option>
             </select>
             <div class="invalid-feedback">
               Por favor, escolha o tipo de conta!
@@ -76,10 +87,15 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" [disabled]="form.invalid" (click)="save()">Salvar</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="form.invalid"
+          (click)="save()"
+        >
+          Salvar
+        </button>
       </div>
     </div>
-
-
   </ng-template>
 </div>
