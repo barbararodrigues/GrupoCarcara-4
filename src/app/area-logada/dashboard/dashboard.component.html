@@ -1,14 +1,18 @@
 <div class="container-fluid">
   <div class="dashboard-header d-flex p-3">
-    <div class="d-flex text-muted align-items-start justify-content-start w-100">
-      <h3 class="pr-4" >Olá, {{ usuario?.nome }}</h3>
+    <div
+      class="d-flex text-muted align-items-start justify-content-start w-100"
+    >
+      <h3 class="pr-4">Olá, {{ usuario?.nome }}</h3>
       <div class="icon d-flex justify-content-center">
-        <i class="bi" [ngClass]="isVisible ? 'bi-eye-slash' : 'bi-eye'" (click)="isVisible = !isVisible"></i>
+        <i
+          class="bi"
+          [ngClass]="isVisible ? 'bi-eye-slash' : 'bi-eye'"
+          (click)="isVisible = !isVisible"
+        ></i>
       </div>
     </div>
-    <div
-      class="dashboard-toolbar-container"
-    >
+    <div class="dashboard-toolbar-container">
       <div
         class="btn-group pb-3 pt-3 overflow-auto scroll dashboard-toolbar"
         role="group"
@@ -17,7 +21,7 @@
         <button
           type="button"
           (click)="abrirModal(modalMovimentarConta)"
-          class="btn btn-outline-primary bg-white"
+          class="btn btn-outline-primary"
         >
           <i title="Movimentar conta" class="bi bi-upc"></i>
           <p class="m-0">Movimentar Conta</p>
@@ -26,21 +30,22 @@
         <button
           type="button"
           (click)="abrirModal(modalTransferenciaEntreContas)"
-          class="btn btn-outline-primary bg-white"
+          class="btn btn-outline-primary"
         >
-        <img  class="m-2" src="../../../assets/pix.svg" alt="Realizar Transferência" srcset="">
+          <i class="bi bi-x-diamond"></i>
+
           <p class="m-0">Realizar Transferência</p>
         </button>
         <button
           type="button"
           (click)="atualizarDados()"
-          class="btn btn-outline-primary bg-white"
+          class="btn btn-outline-primary"
         >
           <i title="Recarregar Dados" class="bi bi-arrow-repeat"></i>
           <p class="m-0">Recarregar</p>
         </button>
       </div>
-    </div>   
+    </div>
   </div>
 
   <div class="contas">
@@ -54,11 +59,13 @@
             </div>
             <div>
               <p class="text-muted mt-3 mb-2">Fatura atual</p>
-              <h3 class="text-success" [ngClass]="isVisible ? 'hidden': ''">R$ 0,00</h3>
+              <h3 class="text-success" [ngClass]="isVisible ? 'hidden' : ''">
+                R$ 0,00
+              </h3>
             </div>
             <h6 class="mb-2 text-muted" id="saldoContaCredito">
               Limite disponível:
-              <span class="text-info" [ngClass]="isVisible ? 'hidden': ''">
+              <span class="text-info" [ngClass]="isVisible ? 'hidden' : ''">
                 {{ dashboard?.contaCredito?.saldo | currency: "BRL" }}
               </span>
             </h6>
@@ -74,7 +81,7 @@
             </div>
             <div>
               <p class="text-muted mt-3 mb-2">Saldo disponível</p>
-              <h3 class="text-dark" [ngClass]="isVisible ? 'hidden': ''">
+              <h3 class="text-dark" [ngClass]="isVisible ? 'hidden' : ''">
                 {{ dashboard?.contaBanco?.saldo | currency: "BRL" }}
               </h3>
             </div>
@@ -88,35 +95,170 @@
       <div class="col-md-12">
         <div class="card" style="width: 100%; margin-bottom: 50px">
           <div class="card-body">
-            <div class="d-flex align-items-center pb-4">
-              <h5 class="text-secondary m-0 mr-2">
-                <strong>Movimentações</strong>
-              </h5>
+            <div class="row">
+              <div class="col-md-6 d-flex mb-3">
+                <h5 class="d-flex text-secondary m-0 mr-2 align-items-center">
+                  <strong>Movimentações</strong>
+                </h5>
 
-              <button
-                type="button"
-                (click)="abrirModal(modalFiltro)"
-                class="btn btn-outline-primary"
-                data-bs-toggle="tooltip"
-                data-bs-placement="right"
-                title="Filtros"
-              >
-                <i title="Filtrar Movimentações" class="bi bi-funnel"></i>
-              </button>
+                <button
+                  type="button"
+                  (click)="abrirModal(modalFiltro)"
+                  class="btn btn-outline-primary"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="right"
+                  title="Filtros"
+                >
+                  <i title="Filtrar Movimentações" class="bi bi-funnel"></i>
+                </button>
+              </div>
+              <div class="col-md-6 d-flex mb-3">
+                <div class="input-group" style="max-width: 300px">
+                  <input
+                    type="text"
+                    class="form-control"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default"
+                    placeholder="Ex: Transferência"
+                  />
+                  <span
+                    class="btn btn-primary"
+                    id="inputGroup-sizing-default"
+                    style="cursor: pointer; max-height: 40px"
+                    >Pesquisar</span
+                  >
+                </div>
+              </div>
             </div>
 
-            <h6 class="mb-2 text-muted" id="lblTipoConta">
+            <!-- <h6 class="mb-2 text-muted" id="lblTipoConta">
               Tipo: {{ textoMovimentacao }}
-            </h6>
-            <h6 class="mb-2 text-muted" id="" *ngIf="dataInicio == dataFim">
-              Data: {{dataInicio | date:"dd/MM/yyyy HH:mm"}}
-            </h6>
+            </h6> -->
+            <!-- <h6 class="mb-2 text-muted" id="" *ngIf="dataInicio == dataFim">
+              Data: {{ dataInicio | date: "dd/MM/yyyy HH:mm" }}
+            </h6> -->
             <h6 class="mb-2 text-muted" id="" *ngIf="dataInicio != dataFim">
-              Data Inicio: {{dataInicio | date:"dd/MM/yyyy HH:mm"}}
+              Data Inicio: {{ dataInicio | date: "dd/MM/yyyy HH:mm" }}
             </h6>
             <h6 class="mb-4 text-muted" id="" *ngIf="dataInicio != dataFim">
-              Data Fim: {{dataFim | date:"dd/MM/yyyy HH:mm"}}
+              Data Fim: {{ dataFim | date: "dd/MM/yyyy HH:mm" }}
             </h6>
+
+            <div class="d-flex justify-content-center pb-3">
+              <div class="form-check form-check-inline" style="cursor: pointer">
+                <input
+                  style="cursor: pointer"
+                  class="form-check-input"
+                  type="checkbox"
+                  checked
+                />
+                <label
+                  style="cursor: pointer"
+                  class="form-check-label text-muted"
+                  for="flexCheckDefault"
+                >
+                  <b>Cartão de Crédito</b>
+                </label>
+              </div>
+              <div class="form-check form-check-inline" style="cursor: pointer">
+                <input
+                  style="cursor: pointer"
+                  class="form-check-input"
+                  type="checkbox"
+                  checked
+                />
+                <label
+                  style="cursor: pointer"
+                  class="form-check-label text-muted"
+                  for="flexCheckChecked"
+                >
+                  <b> Conta Débito</b>
+                </label>
+              </div>
+            </div>
+            <div
+              class="card mb-4 bg-danger text-light"
+              style="margin: 0 auto; max-width: 576px"
+            >
+              <div
+                class="d-flex text-muted align-items-center mb-3 p-2 bg-white justify-content-around"
+              >
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-credit-card-2-front pr-3 pb-1"></i>
+                  <h5 class="m-0"><strong>Cartão de Crédito</strong></h5>
+                </div>
+                <i
+                  class="bi bi-arrow-down-circle-fill pr-3 pb-1 text-danger"
+                ></i>
+              </div>
+              <div class="px-2 text-muted bg-white">
+                <h5 class="my-2">Supermercado</h5>
+                <h3 class="mb-2">- R$ 55,50</h3>
+                <h6 class="d-flex mb-2 justify-content-end">16/02/2021</h6>
+              </div>
+            </div>
+            <div
+              class="card mb-4 bg-info text-light"
+              style="margin: 0 auto; max-width: 576px"
+            >
+              <div
+                class="d-flex text-muted align-items-center mb-3 p-2 bg-white justify-content-around"
+              >
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-credit-card-2-front pr-3 pb-1"></i>
+                  <h5 class="m-0"><strong>Cartão de Crédito</strong></h5>
+                </div>
+                <i class="bi bi-arrow-up-circle-fill pr-3 pb-1 text-info"></i>
+              </div>
+              <div class="px-2 text-muted bg-white">
+                <h5 class="my-2">Pagamento Antecipado</h5>
+                <h3 class="mb-2">R$ 300,00</h3>
+                <h6 class="d-flex mb-2 justify-content-end">16/02/2021</h6>
+              </div>
+            </div>
+
+            <div
+              class="card mb-4 bg-danger text-light"
+              style="margin: 0 auto; max-width: 576px"
+            >
+              <div
+                class="d-flex text-muted align-items-center mb-3 p-2 bg-white justify-content-around"
+              >
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-cash pr-3"></i>
+                  <h5 class="m-0"><strong>Conta Débito</strong></h5>
+                </div>
+                <i
+                  class="bi bi-arrow-down-circle-fill pr-3 pb-1 text-danger"
+                ></i>
+              </div>
+              <div class="px-2 text-muted bg-white">
+                <h5 class="my-2">Transferência PIX</h5>
+                <h3 class="mb-2">- R$ 180,00</h3>
+                <h6 class="d-flex mb-2 justify-content-end">16/02/2021</h6>
+              </div>
+            </div>
+
+            <div
+              class="card mb-4 bg-info text-light"
+              style="margin: 0 auto; max-width: 576px"
+            >
+              <div
+                class="d-flex text-muted align-items-center mb-3 p-2 bg-white justify-content-around"
+              >
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-cash pr-3"></i>
+                  <h5 class="m-0"><strong>Conta Débito</strong></h5>
+                </div>
+                <i class="bi bi-arrow-up-circle-fill pr-3 pb-1 text-info"></i>
+              </div>
+              <div class="px-2 text-muted bg-white">
+                <h5 class="my-2">Recebimento de Transferência</h5>
+                <h3 class="mb-2">R$ 225,00</h3>
+                <h6 class="d-flex mb-2 justify-content-end">16/02/2021</h6>
+              </div>
+            </div>
+
             <div>
               <div *ngIf="!!dashboard?.lancamentosExibidos?.length">
                 <ng-container
@@ -268,27 +410,38 @@
             </div>
           </div>
           <div class="form-group">
-            <label>
-              Data Operação
-            </label>
-            <input type="datetime-local" class="form-control" name="dataOperacao" required
-              [class.is-invalid]="exibeErro('dataOperacao',form)" #dataOperacaoInput [(ngModel)]="inpDataOperacao">
+            <label> Data Operação </label>
+            <input
+              type="datetime-local"
+              class="form-control"
+              name="dataOperacao"
+              required
+              [class.is-invalid]="exibeErro('dataOperacao', form)"
+              #dataOperacaoInput
+              [(ngModel)]="inpDataOperacao"
+            />
             <div class="invalid-feedback">
               Por favor, insira a data da operação!
             </div>
           </div>
           <div class="form-group">
-            <label>
-              Tipo da Operação
-            </label>
-            <select  name="tipoOperacao" class="form-control" required
-            [class.is-invalid]="exibeErro('tipoOperacao',form)" #tipoOperacaoInput [(ngModel)]="selTipoOperacao"
-            (change)="changeTipoOperacao()">
-            <option *ngFor="let planoconta of planoContas" value="{{planoconta.id}}">
-              {{planoconta.descricao}}
-            </option>
-       
-          </select>
+            <label> Tipo da Operação </label>
+            <select
+              name="tipoOperacao"
+              class="form-control"
+              required
+              [class.is-invalid]="exibeErro('tipoOperacao', form)"
+              #tipoOperacaoInput
+              [(ngModel)]="selTipoOperacao"
+              (change)="changeTipoOperacao()"
+            >
+              <option
+                *ngFor="let planoconta of planoContas"
+                value="{{ planoconta.id }}"
+              >
+                {{ planoconta.descricao }}
+              </option>
+            </select>
             <!-- <select name="tipoOperacao" class="form-control" required
               [class.is-invalid]="exibeErro('tipoOperacao',form)" #tipoOperacaoInput [(ngModel)]="selTipoOperacao"
               (change)="changeTipoOperacao()">
@@ -393,23 +546,32 @@
             </div>
           </div>
           <div class="form-group">
-            <label>
-              Data Operação
-            </label>
-            <input type="datetime-local" class="form-control" min="dataAtual()" name="dataTransferencia" required
-              [class.is-invalid]="exibeErro('dataTransferencia', form)" #dataTransferenciaInput
-              [(ngModel)]="inpDataTransferencia">
+            <label> Data Operação </label>
+            <input
+              type="datetime-local"
+              class="form-control"
+              min="dataAtual()"
+              name="dataTransferencia"
+              required
+              [class.is-invalid]="exibeErro('dataTransferencia', form)"
+              #dataTransferenciaInput
+              [(ngModel)]="inpDataTransferencia"
+            />
             <div class="invalid-feedback">
               Por favor, insira a data de Operação!
             </div>
           </div>
           <div class="form-group">
-            <label>
-              Número da conta para transferir
-            </label>
-            <input type="text" class="form-control" name="contaTransferencia" required
-              [class.is-invalid]="exibeErro('contaTransferencia', form)" #contaTransferenciaInput
-              [(ngModel)]="inpContaTransferencia">
+            <label> Número da conta para transferir </label>
+            <input
+              type="text"
+              class="form-control"
+              name="contaTransferencia"
+              required
+              [class.is-invalid]="exibeErro('contaTransferencia', form)"
+              #contaTransferenciaInput
+              [(ngModel)]="inpContaTransferencia"
+            />
             <div class="invalid-feedback">
               Por favor, insira o número da conta!
             </div>

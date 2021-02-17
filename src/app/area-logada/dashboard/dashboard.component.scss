@@ -9,12 +9,6 @@
     font-weight: 900;
   }
 
-  .icon {
-    width: 40px;
-    border-radius: 50%;
-    background-color: #80808029;
-  }
-
   .btn {
     p {
       inline-size: max-content;
@@ -40,9 +34,8 @@
   outline: 0;
 }
 
-@media(max-width: 992px){
+@media (max-width: 992px) {
   .dashboard-header {
-
     .dashboard-toolbar-container {
       position: fixed;
       z-index: 99;
@@ -50,19 +43,18 @@
       background-color: #fafafa;
       left: -20px;
 
-        .dashboard-toolbar {
-          display: flex; 
-          width: calc(100vw + 16px);
+      .dashboard-toolbar {
+        display: flex;
+        width: calc(100vw + 16px);
 
-          .btn {
-            margin-right: 16px;
+        .btn {
+          margin-right: 16px;
 
-            &:first-child {
-              margin: 0 16px 0 24px;
-            }
+          &:first-child {
+            margin: 0 16px 0 24px;
           }
-
         }
+      }
     }
   }
 }
