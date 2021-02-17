@@ -1,71 +1,140 @@
- <div class="container">
-    <div class="shadow p-3 my-5 bg-body rounded bg-secondary ">
-      <div class="row mt-5 mb-5">
-        <div class="col-md-6 mt-2">
-          <div class="fluid text-center pt-5">
-            <h2 class="display-6">Tudo digital e de graça</h2>
-            <p class="text-center">A Conta Digital do Banco Carcará é a primeira conta corrente totalmente
-              voltada as pessoas do campo. Com
-              ela, seu banco está na palma da mão 24h, pelo App ou Internet Banking. Sem filas, sem
-              burocracia e sem tarifas.
-            </p>
-          </div>
-          <img class="img-fluid m-auto" width="100%" alt="Imagem resposiva" src="assets/img/signup_bird_xilo.png" />
+<div class="container">
+  <div class="shadow p-3 my-5 bg-body rounded bg-secondary">
+    <div class="row mt-5 mb-5">
+      <div class="col-md-6 mt-2">
+        <div class="fluid text-center pt-5">
+          <h2 class="display-6">Tudo digital e de graça</h2>
+          <p class="text-center">
+            A Conta Digital do Banco Carcará é a primeira conta corrente
+            totalmente voltada as pessoas do campo. Com ela, seu banco está na
+            palma da mão 24h, pelo App ou Internet Banking. Sem filas, sem
+            burocracia e sem tarifas.
+          </p>
         </div>
-        <div class="col-md-6 m-auto">
-          <div class="card signup-card">
-            <h2 class="mt-5 mb-4 text-center">Abra agora a sua Conta Digital!</h2>
-            <form class="p-3" #form="ngForm">
-              <div class="form-group custom">
-                <input autocomplete="username" type="text" class="form-control" placeholder="Usuário" maxlength="20"
-                  [(ngModel)]="login" name="login" max required [class.is-invalid]="exibeErro('login',form)" #loginInput>
-                <div class="invalid-feedback">
-                  Usuário inválido!
-                </div>
+        <img
+          class="img-fluid m-auto"
+          width="100%"
+          alt="Imagem resposiva"
+          src="assets/img/signup_bird_xilo.png"
+        />
+      </div>
+      <div class="col-md-6 m-auto">
+        <div class="card signup-card">
+          <h2 class="mt-5 mb-4 text-center">Abra agora a sua Conta Digital!</h2>
+          <form class="p-3" #form="ngForm">
+            <div class="form-group custom">
+              <input
+                autocomplete="username"
+                type="text"
+                class="form-control"
+                placeholder="Usuário"
+                maxlength="20"
+                [(ngModel)]="login"
+                name="login"
+                max
+                required
+                [class.is-invalid]="exibeErro('login', form)"
+                #loginInput
+              />
+              <div class="invalid-feedback">Usuário inválido!</div>
+            </div>
+            <div class="form-group custom">
+              <input
+                autocomplete="cpf"
+                type="text"
+                class="form-control"
+                placeholder="CPF"
+                minlength="11"
+                [(ngModel)]="cpf"
+                name="cpf"
+                required
+                [class.is-invalid]="exibeErro('cpf', form)"
+                mask="000.000.000-00"
+                #cpfInput
+              />
+              <div class="invalid-feedback">CPF inválido!</div>
+            </div>
+            <div class="form-group custom">
+              <input
+                autocomplete="nome"
+                type="text"
+                class="form-control"
+                placeholder="Nome"
+                [(ngModel)]="nome"
+                name="nome"
+                required
+                [class.is-invalid]="exibeErro('nome', form)"
+                #nomeInput
+              />
+              <div class="invalid-feedback">Nome inválido!</div>
+            </div>
+            <div class="form-group custom">
+              <input
+                autocomplete="current-password"
+                type="password"
+                class="form-control"
+                placeholder="Senha"
+                [(ngModel)]="senha"
+                name="senha"
+                minlength="6"
+                required
+                [class.is-invalid]="exibeErro('senha', form)"
+                #senhaInput
+              />
+              <div class="invalid-feedback">
+                Necessário que a senha tenha 6 caracteres!
               </div>
-              <div class="form-group custom">
-                <input autocomplete="cpf" type="text" class="form-control" placeholder="CPF" minlength="11"
-                  [(ngModel)]="cpf" name="cpf" required [class.is-invalid]="exibeErro('cpf',form)" mask="000.000.000-00" #cpfInput>
-                <div class="invalid-feedback">
-                  CPF inválido!
-                </div>
+            </div>
+            <div class="form-group custom">
+              <input
+                autocomplete="current-password"
+                type="password"
+                class="form-control"
+                placeholder="Digite a senha novamente"
+                [(ngModel)]="resenha"
+                name="resenha"
+                minlength="6"
+                required
+                [class.is-invalid]="exibeErro('resenha', form)"
+                #resenhaInput
+              />
+              <div class="invalid-feedback">
+                Necessário que a senha tenha 6 caracteres!
               </div>
-              <div class=" form-group custom">
-                <input autocomplete="nome" type="text" class="form-control" placeholder="Nome" [(ngModel)]="nome"
-                  name="nome" required [class.is-invalid]="exibeErro('nome',form)" #nomeInput>
-                <div class="invalid-feedback">
-                  Nome inválido!
-                </div>
+              <div *ngIf="verificaResenha()" class="invalid-feedback">
+                As senhas não coincidem!
               </div>
-              <div class="form-group custom">
-                <input autocomplete="current-password" type="password" class="form-control" placeholder="Senha"
-                  [(ngModel)]="senha" name="senha" minlength="6" required [class.is-invalid]="exibeErro('senha',form)" #senhaInput>
-                <div class="invalid-feedback">
-                  Necessário que a senha tenha 6 caracteres!
-                </div>
+            </div>
+            <div style="height: 30px">
+              <div *ngIf="erorNoCadastro" class="text-danger">
+                <em title="Erro" class="bi bi-exclamation-triangle pr-2"></em>
+                <span
+                  >Esse usuário já foi cadastrado! Tento um novo usuário.</span
+                >
               </div>
-              <div class="form-group custom">
-                <input autocomplete="current-password" type="password" class="form-control" placeholder="Digite a senha novamente"
-                [(ngModel)]="resenha" name="resenha" minlength="6" required [class.is-invalid]="exibeErro('resenha',form)" #resenhaInput>
-                <div class="invalid-feedback">
-                  Necessário que a senha tenha 6 caracteres!
-                </div>
-                <div *ngIf="verificaResenha()" class="invalid-feedback" >
-                  As senhas não coincidem!
-                </div>
-              </div>
-              <div style="height: 30px">
-                <div *ngIf="erorNoCadastro" class="text-danger">
-                  <em title="Erro" class="bi bi-exclamation-triangle pr-2"></em>
-                  <span>Esse usuário já foi cadastrado! Tento um novo usuário.</span>
-                </div>
-              </div>
-              <div class="d-flex justify justify-content-end">
-                <button class="btn btn-warning" [disabled]="form.invalid"  (click)="onSubmit(form)">Abrir Conta</button>
-              </div>
-            </form>
-          </div>
+            </div>
+            <div class="col-md-12 col-lg-6">
+              <button
+                *ngIf="!estaCarregando"
+                type="submit"
+                class="btn btn-warning w-100 my-1"
+                [disabled]="form.invalid"
+                (click)="onSubmit(form)"
+              >
+                Abrir Conta
+              </button>
+              <button
+                *ngIf="estaCarregando"
+                type="button"
+                class="btn btn-primary w-100 my-1"
+                disabled
+              >
+                <span class="visually-hidden">Carregando...</span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+</div>
