@@ -36,7 +36,8 @@ export class DashboardComponent implements OnInit {
   textoMovimentacao: string = 'Todas';
 
   planoContas: PlanoContaResponse[] = [];
-
+  planoContasTransferencia: PlanoContaResponse[] = [];
+  
 
   //Modais
 
@@ -45,16 +46,16 @@ export class DashboardComponent implements OnInit {
   seltipoConta: string | null = "3";
 
   inpDescricaoOperacao: string = "";
-  inpValorOperacao: string = "100";
+  inpValorOperacao: string = "";
   inpDataOperacao: string = "";
   selTipoOperacao: string = "";
   selTipoContaOperacao: string = "";
 
   inpDescricaoTransferencia: string = "";
-  inpValorTransferencia: string = "100";
+  inpValorTransferencia: string = "";
   inpDataTransferencia: string = "";
   inpContaTransferencia: string = "";
-
+  selTipoOperacaoTransferencia: string = "";
   //FimModais
 
   isVisible: boolean = false
@@ -105,7 +106,7 @@ export class DashboardComponent implements OnInit {
           }
         );
 
-    this.planoContaService.getPlanoConta()
+    this.planoContaService.getPlanoContaTipoLancamento('R, D')
     .pipe(
       finalize(() => {
         this.loaderService.close();
@@ -117,7 +118,21 @@ export class DashboardComponent implements OnInit {
         alert(error.error.message);
       }
     );
-    }
+
+    this.planoContaService.getPlanoContaTipoLancamento('TC, TU')
+    .pipe(
+      finalize(() => {
+        this.loaderService.close();
+      })
+    )
+    .subscribe(
+      response => this.planoContasTransferencia = response,
+      error => {
+        alert(error.error.message);
+      }
+    );
+    
+  }
   
     catch (error) {
       console.log(`Erro no método: atualizarDados.Dashboard: ${error}`);
@@ -327,9 +342,9 @@ export class DashboardComponent implements OnInit {
         let body: LancamentoBody = {
           "conta": idConta,
           "contaDestino": this.inpContaTransferencia,
-          "data": this.inpDataTransferencia as string,
+          "data": this.inpDataTransferencia.replace("T", " ") as string,
           "descricao": this.inpDescricaoTransferencia as string,
-          "planoConta": Number(this.selTipoOperacao),
+          "planoConta": Number(this.selTipoOperacaoTransferencia),
           "valor": Number(this.inpValorTransferencia)
         };
 

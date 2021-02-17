@@ -109,13 +109,13 @@
               Tipo: {{ textoMovimentacao }}
             </h6>
             <h6 class="mb-2 text-muted" id="" *ngIf="dataInicio == dataFim">
-              Data: {{dataInicio | date:"dd/MM/yyyy HH:mm"}}
+              Data: {{dataInicio | date:"dd/MM/yyyy"}}
             </h6>
             <h6 class="mb-2 text-muted" id="" *ngIf="dataInicio != dataFim">
-              Data Inicio: {{dataInicio | date:"dd/MM/yyyy HH:mm"}}
+              Data Inicio: {{dataInicio | date:"dd/MM/yyyy"}}
             </h6>
             <h6 class="mb-4 text-muted" id="" *ngIf="dataInicio != dataFim">
-              Data Fim: {{dataFim | date:"dd/MM/yyyy HH:mm"}}
+              Data Fim: {{dataFim | date:"dd/MM/yyyy"}}
             </h6>
             <div>
               <div *ngIf="!!dashboard?.lancamentosExibidos?.length">
@@ -137,10 +137,10 @@
                         Descrição: {{ lancamento.descricao }}
                       </h6>
                       <h6 class="mb-2">
-                        Tipo de Movimentação: {{ lancamento.tipo }}
+                        Tipo de Movimentação: {{ lancamento.planoConta.descricao }}
                       </h6>
                       <h6 class="mb-2">
-                        Data: {{ lancamento.data | date: "dd/MM/yyyy" }}
+                        Data: {{ lancamento.data | date: "dd/MM/yyyy HH:mm" }}
                       </h6>
                     </div>
                   </div>
@@ -252,6 +252,8 @@
             <label> Valor </label>
             <input
               class="form-control"
+              name="valorOperacao"
+              required
               [class.is-invalid]="exibeErro('valorOperacao', form)"
               #valorOperacaoInput
               [(ngModel)]="inpValorOperacao"
@@ -289,19 +291,6 @@
             </option>
        
           </select>
-            <!-- <select name="tipoOperacao" class="form-control" required
-              [class.is-invalid]="exibeErro('tipoOperacao',form)" #tipoOperacaoInput [(ngModel)]="selTipoOperacao"
-              (change)="changeTipoOperacao()">
-              <option value="25">
-                Recebimento
-              </option>
-              <option value="26">
-                Despesa
-              </option>
-              <option value="27">
-                Transferência de conta débito para crédito
-              </option>
-            </select> -->
             <div class="invalid-feedback">
               Por favor, escolha o tipo de operação!
             </div>
@@ -403,6 +392,21 @@
               Por favor, insira a data de Operação!
             </div>
           </div>
+          <div class="form-group">
+            <label>
+              Tipo da Operação
+            </label>
+            <select  name="tipoOperacaoTransferencia" class="form-control" required
+            [class.is-invalid]="exibeErro('tipoOperacaoTransferencia',form)" #tipoOperacaoTransferenciaInput [(ngModel)]="selTipoOperacaoTransferencia"
+            (change)="changeTipoOperacao()">
+            <option *ngFor="let planoconta of planoContasTransferencia" value="{{planoconta.id}}">
+              {{planoconta.descricao}}
+            </option>
+          </select>
+          <div class="invalid-feedback">
+            Por favor, escolha o tipo de operação!
+          </div>
+        </div>
           <div class="form-group">
             <label>
               Número da conta para transferir

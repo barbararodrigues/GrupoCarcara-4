@@ -43,31 +43,31 @@ export class PlanoContaComponent implements OnInit {
 
   atualizarDados() {
     try {
-    this.loaderService.open();
-      
-    this.planoContaService.getPlanoConta()
-    .pipe(
-      finalize(() => {
-        this.loaderService.close();
-      })
-    )
-    .subscribe( 
-      response => this.planoContas = response.filter(f=> f.ativo === true),
-      error => {
-        alert(error.error.message);
-      }
-    );
+      this.loaderService.open();
+
+      this.planoContaService.getPlanoConta()
+        .pipe(
+          finalize(() => {
+            this.loaderService.close();
+          })
+        )
+        .subscribe(
+          response => this.planoContas = response.filter(f => f.ativo === true),
+          error => {
+            alert(error.error.message);
+          }
+        );
     }
     catch (error) {
       console.log(`Erro no método: atualizarDados.PlanoConta: ${error}`);
     }
   }
 
-  abrirModal(content: TemplateRef<NgbModalRef>, id: number ) {
+  abrirModal(content: TemplateRef<NgbModalRef>, id: number) {
     try {
       if (id > 0)
-        this.getPlanoContaId(id);  
-     
+        this.getPlanoContaId(id);
+
       this.modalReference = this.modalService.open(content, { centered: true, size: "sm", backdrop: "static" });
     }
     catch (error) {
@@ -75,12 +75,12 @@ export class PlanoContaComponent implements OnInit {
     }
   }
 
-  getPlanoContaId(id: number){
+  getPlanoContaId(id: number) {
     try {
       this.id = id;
-       let planoconta = this.planoContas.filter(f=> f.id === id);
-       this.inpDescricao = planoconta[0]?.descricao;
-       this.selTipoContaOperacao = planoconta[0]?.tipo_Lancamento === "RECEITA" ? "R" : "D";
+      let planoconta = this.planoContas.filter(f => f.id === id);
+      this.inpDescricao = planoconta[0]?.descricao;
+      this.selTipoContaOperacao = this.getTipoOperacao(planoconta[0]?.tipoLancamento); 
 
     }
     catch (error) {
@@ -102,7 +102,7 @@ export class PlanoContaComponent implements OnInit {
   save() {
     try {
       let body;
-      if(this.id > 0) {
+      if (this.id > 0) {
         body = {
           id: this.id,
           descricao: this.inpDescricao,
@@ -111,18 +111,18 @@ export class PlanoContaComponent implements OnInit {
           ativo: true
         }
         this.planoContaService.put(body, this.id)
-        .subscribe(
-          response => {
-            this.atualizarDados();
-            this.fecharModal();
-            this.inpDescricao = "";
-            this.selTipoContaOperacao = "";
-            this.id = 0;
-          },
-          error => {
-            alert(error.error.message);
-          }
-        )
+          .subscribe(
+            response => {
+              this.atualizarDados();
+              this.fecharModal();
+              this.inpDescricao = "";
+              this.selTipoContaOperacao = "";
+              this.id = 0;
+            },
+            error => {
+              alert(error.error.message);
+            }
+          )
       } else {
         body = {
           descricao: this.inpDescricao,
@@ -132,21 +132,21 @@ export class PlanoContaComponent implements OnInit {
         }
 
         this.planoContaService.save(body)
-        .subscribe(
-          response => {
-            this.atualizarDados();
-            this.fecharModal();
-            this.inpDescricao = "";
-            this.selTipoContaOperacao = "";
-            this.id = 0;
-          },
-          error => {
-            alert(error.error.message);
-          }
-        )
+          .subscribe(
+            response => {
+              this.atualizarDados();
+              this.fecharModal();
+              this.inpDescricao = "";
+              this.selTipoContaOperacao = "";
+              this.id = 0;
+            },
+            error => {
+              alert(error.error.message);
+            }
+          )
       }
-      
-    
+
+
     }
     catch (error) {
       console.log(`Erro no método: save.PlanoConta: ${error}`);
@@ -164,6 +164,25 @@ export class PlanoContaComponent implements OnInit {
       console.log(`Erro no método: exibeErro.PlanoConta: ${error}`);
     }
     return false;
+  }
+
+  getTipoOperacao(tipoOperacao: String): string {
+    try {
+      switch (tipoOperacao) {
+        case 'Despesa':
+          return 'D';
+        case 'Receita':
+          return 'R';
+        case 'Transferência entre usuários':
+          return 'TC';
+        case 'Transferência entre contas':
+          return 'TU'
+      }
+    }
+    catch (error) {
+      console.log(`Erro no método: getTipoOperacao.PlanoConta: ${error}`);
+    }
+    return '';
   }
 
 
