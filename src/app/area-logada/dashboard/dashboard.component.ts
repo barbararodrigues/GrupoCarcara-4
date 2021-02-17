@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     try {
-      // this.usuario = this.authService.getUsuario();
+      this.usuario = this.authService.getUsuario();
       let dataAtual = new Date(),
         dataFormatada = this.datePipe.transform(dataAtual, "yyyy-MM-dd");
       this.dataInicio = dataFormatada;

@@ -16,7 +16,7 @@ export class LoginService {
   constructor(private HttpClient: HttpClient, private authService: AuthService) { }
 
   logar(credenciais: LoginCredenciais): Observable<LoginResponse> {
-    return this.HttpClient.post<LoginResponse>(environment.baseURL + '/login', credenciais)
+    return this.HttpClient.post<LoginResponse>(environment.baseURL + '/user/login', credenciais)
     .pipe(
       tap(response =>{
         this.authService.setUsuario(response.usuario);

@@ -106,7 +106,7 @@ export class PlanoContaComponent implements OnInit {
         body = {
           id: this.id,
           descricao: this.inpDescricao,
-          login: 'barbara', // this.authService.getUsuario()!.login,
+          login: this.authService.getUsuario()!.login,
           tipoLancamento: this.selTipoContaOperacao,
           ativo: true
         }
@@ -126,7 +126,7 @@ export class PlanoContaComponent implements OnInit {
       } else {
         body = {
           descricao: this.inpDescricao,
-          login: 'barbara', // this.authService.getUsuario()!.login,
+          login: this.authService.getUsuario()!.login,
           tipoLancamento: this.selTipoContaOperacao,
           ativo: true
         }
@@ -151,6 +151,31 @@ export class PlanoContaComponent implements OnInit {
     catch (error) {
       console.log(`Erro no método: save.PlanoConta: ${error}`);
     }
+  }
+
+  deletePlanoConta(id: number){
+    this.getPlanoContaId(id);
+    let body = {
+      id: this.id,
+      descricao: this.inpDescricao,
+      login: this.authService.getUsuario()!.login,
+      tipoLancamento: this.selTipoContaOperacao,
+      ativo: false
+    }
+    this.planoContaService.put(body, this.id)
+          .subscribe(
+            response => {
+              this.atualizarDados();
+              this.fecharModal();
+              this.inpDescricao = "";
+              this.selTipoContaOperacao = "";
+              this.id = 0;
+            },
+            error => {
+              alert(error.error.message);
+            }
+          )
+
   }
 
   exibeErro(nomeControle: string, form: NgForm) {

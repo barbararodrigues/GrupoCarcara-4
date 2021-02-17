@@ -14,24 +14,22 @@ export class PlanoContaService {
 
    getPlanoConta(): Observable<PlanoContaResponse[]> {
     return this.HttpClient.get<PlanoContaResponse[]>(environment.baseURL + '/planoconta', {
-      // headers: {
-      //   'Authorization': this.authService.getToken()!,
-      // },
+      headers: {
+        'Authorization': this.authService.getToken()!,
+      },
       params: {
-        // login: this.authService.getUsuario()!.login,
-        login :'barbara'
+        login: this.authService.getUsuario()!.login,
       }
     });
   };
 
   getPlanoContaTipoLancamento(tipoLancamento: string): Observable<PlanoContaResponse[]> {
     return this.HttpClient.get<PlanoContaResponse[]>(environment.baseURL + '/planoconta/param', {
-      // headers: {
-      //   'Authorization': this.authService.getToken()!,
-      // },
+      headers: {
+        'Authorization': this.authService.getToken()!,
+      },
       params: {
-        // login: this.authService.getUsuario()!.login,
-        login :'barbara',
+        login: this.authService.getUsuario()!.login,
         tipoLancamento
 
       }
@@ -41,25 +39,23 @@ export class PlanoContaService {
 
   save(body: any) : Observable<any> {
     return this.HttpClient.post(environment.baseURL + "/planoconta", body, {
-      // headers: {
-      //   'Authorization': this.authService.getToken()!,
-      // }
+      headers: {
+        'Authorization': this.authService.getToken()!,
+      }
     })            
   };
 
 
   put(body:any, id: number){
     return this.HttpClient.put(environment.baseURL + "/planoconta/"+id, body, {
-      // headers: {
-      //   'Authorization': this.authService.getToken()!,
-      // }
+      headers: {
+        'Authorization': this.authService.getToken()!,
+      }
     })   
   }
 
 
-  delete(id: number){
 
-  }
 
 }
 

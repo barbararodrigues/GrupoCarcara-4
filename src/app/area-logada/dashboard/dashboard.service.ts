@@ -16,12 +16,11 @@ export class DashboardService {
 
   getDashboard(inicio: string, fim: string): Observable<DashboardResponse> {
     return this.HttpClient.get<DashboardResponse>(environment.baseURL + '/dashboard', {
-      // headers: {
-      //   'Authorization': this.authService.getToken()!,
-      // },
+      headers: {
+        'Authorization': this.authService.getToken()!,
+      },
       params: {
-        // login: this.authService.getUsuario()!.login,
-        login: 'barbara',
+        login: this.authService.getUsuario()!.login,
         inicio,
         fim
       }
@@ -30,9 +29,9 @@ export class DashboardService {
 
   realizarLancamento(body: LancamentoBody) : Observable<any> {
     return this.HttpClient.post(environment.baseURL + "/lancamentos", body, {
-      // headers: {
-      //   'Authorization': this.authService.getToken()!,
-      // }
+      headers: {
+        'Authorization': this.authService.getToken()!,
+      }
     })            
   };
 
