@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="160px" src="./assets/img/logo.png"/>
+  <img width="160px" src=".src/assets/img/logo.png"/>
   
   <h2> Projeto Final - FrontEnd </h2>
 </div>
