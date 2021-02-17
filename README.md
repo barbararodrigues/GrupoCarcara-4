@@ -5,7 +5,7 @@
 </div>
 
 <div align="center">
-  <h3>Projeto Java</h3>
+  <h3>Banco Carcará - Angular</h3>
   <a href="#-Introduction">Introdução</a> |
   <a href="#Tecnologias">Tecnologias</a> |
 
