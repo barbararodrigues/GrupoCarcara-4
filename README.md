@@ -1,27 +1,48 @@
-# MinhaAplicacao
+<div align="center">
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.2.
+  
+  <h2> Projeto Final - Front End</h2>
+</div>
 
-## Development server
+<div align="center">
+  <h3>Banco Carcará - Angular</h3>
+  <a href="#-Introduction">Introdução</a> |
+  <a href="#Tecnologias">Tecnologias</a> |
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+</div>
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# 👨🏻‍💻 Introdução
 
-## Build
+## Objetivo
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Esse repositório possui
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Aplicação Banco Carcará:
 
-## Further help
+- Front End - Angular 
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Projeto
+
+Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.academy/).
+
+# Tecnologias utilizadas
+
+- Angular v11.1.1
+- Html
+- Css
+
+
+
+# 💻 Made by
+- Wesley Vicente `(Development)`  [LinkedIn](https://www.linkedin.com/in/wesleyvicen/)
+- Renan Alencar `(Development)`  [LinkedIn](https://www.linkedin.com/in/renancostaalencar/)
+- Gabriel Botelho `(Development)`  [LinkedIn](https://www.linkedin.com/in/gabriel-carreiras-botelho-867158151/)
+- Guilherme Cruz `(Development)`  [LinkedIn](https://www.linkedin.com/in/guilherme-p-cruz/)
+- Bárbara Rodrigues `(Development)`  [LinkedIn](https://www.linkedin.com/in/b%C3%A1rbara-rodrigues-49924697/)
+- Lucas Reis Caputo `(Development)`  [LinkedIn](https://www.linkedin.com/in/lucascaputo/)

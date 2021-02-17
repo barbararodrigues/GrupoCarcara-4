@@ -92,6 +92,9 @@ export class PlanoContaComponent implements OnInit {
   fecharModal() {
     try {
       this.mostrarErroData = false;
+      this.inpDescricao = "";
+      this.selTipoContaOperacao = "";
+      this.id = 0;
       this.modalReference?.close();
     }
     catch (error) {
@@ -145,7 +148,6 @@ export class PlanoContaComponent implements OnInit {
             }
           )
       }
-
 
     }
     catch (error) {
