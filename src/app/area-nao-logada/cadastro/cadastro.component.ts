@@ -24,6 +24,7 @@ export class CadastroComponent implements OnInit {
   nome = ''
   senha = ''
   resenha = ''
+  errorMessagem = '';
 
 
   estaCarregando: boolean = false;
@@ -120,6 +121,7 @@ export class CadastroComponent implements OnInit {
       console.log("Erro", error)
       this.erorNoCadastro = true;
       this.estaCarregando = false;
+   
     }
     catch (catched_error) {
       console.log(`Erro no método: onErrorCadastro.Cadastro: ${catched_error}`);
