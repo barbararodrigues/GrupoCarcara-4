@@ -23,7 +23,7 @@ consulte os lançamentos.
 
 Aplicação Banco Carcará:
 
-- Front End - Angular - Acesse aqui [Banco Carcará](https://grupocarcara-4.netlify.app/home).
+- Front End - Angular - Acesse aqui [Banco Carcará](https://grupocarcara-4.netlify.app).
 
 
 ## Projeto
