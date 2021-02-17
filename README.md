@@ -16,9 +16,8 @@
 # 👨🏻‍💻 Introdução
 
 ## Objetivo
-
-
-
+Disponibilizar o site para que o cliente cadastre as contas, os planos de contas, realize e
+consulte os lançamentos.
 
 ## Esse repositório possui
 
@@ -36,6 +35,7 @@ Esse projeto foi realizado no treinamento da [Gama Academy](https://www.gama.aca
 - Angular v11.1.1
 - Html
 - Css
+- Bootstrap
 
 
 
