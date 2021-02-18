@@ -55,12 +55,17 @@
           <div class="card-body">
             <div class="d-flex text-muted align-items-center">
               <i class="bi bi-credit-card-2-front pr-3"></i>
-              <h5 class="m-0"><strong>Cartão de Crédito</strong></h5>
+              <h5 class="m-0"><strong>Conta Crédito</strong></h5>
             </div>
             <div>
-              <p class="text-muted mt-3 mb-2">Fatura atual</p>
-              <h3 class="text-success" [ngClass]="isVisible ? 'hidden' : ''">
-                R$ 0,00
+              <p class="text-muted mt-3 mb-2">Saldo disponível</p>
+              <h3 class="" [ngClass]="{
+                'hidden': isVisible,
+                'text-success': dashboard?.contaCredito?.saldo && dashboard!.contaCredito!.saldo > 0,
+                'text-dark': dashboard?.contaCredito?.saldo && dashboard!.contaCredito!.saldo == 0,
+                'text-danger': dashboard?.contaCredito?.saldo && dashboard!.contaCredito!.saldo < 0
+              }">
+                {{ dashboard?.contaCredito?.saldo | currency: "BRL" }}
               </h3>
             </div>
             <!-- <h6 class="mb-2 text-muted" id="saldoContaCredito">
@@ -81,7 +86,12 @@
             </div>
             <div>
               <p class="text-muted mt-3 mb-2">Saldo disponível</p>
-              <h3 class="text-dark" [ngClass]="isVisible ? 'hidden' : ''">
+              <h3 class="" [ngClass]="{
+                'hidden': isVisible,
+                'text-success': dashboard?.contaBanco?.saldo && dashboard!.contaBanco!.saldo > 0,
+                'text-dark': dashboard?.contaBanco?.saldo && dashboard!.contaBanco!.saldo == 0,
+                'text-danger': dashboard?.contaBanco?.saldo && dashboard!.contaBanco!.saldo < 0
+              }">
                 {{ dashboard?.contaBanco?.saldo | currency: "BRL" }}
               </h3>
             </div>
@@ -211,9 +221,17 @@
                     </div>
                     <div class="px-2 text-muted bg-white">
                       <h5 class="my-2">{{ lancamento.descricao }}</h5>
-                      <h3 class="mb-2">
+                      <h6 class="my-2">
+                        {{ lancamento.planoConta.descricao }} - {{ lancamento.planoConta.tipoLancamento}}
+                      </h6>
+                      <h3 class="mb-2" [ngClass]="{
+                        'hidden': isVisible,
+                        'text-success': lancamento.planoConta.tipoLancamento == 'R',                        
+                        'text-danger': lancamento.planoConta.tipoLancamento != 'R'
+                      }">
+                        {{(lancamento.planoConta.tipoLancamento != "R" ? "-" : "")}}
                         {{ lancamento.valor | currency: "BRL" }}
-                      </h3>
+                      </h3>                      
                       <h6 class="d-flex mb-2 justify-content-end">
                         {{ lancamento.data | date: "dd/MM/yyyy HH:mm" }}
                       </h6>
