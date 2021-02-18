@@ -16,8 +16,7 @@ export class AreaLogadaComponent{
     this.verificarDireitoAutoral();
   }
 
-  verificarDireitoAutoral(){
-    debugger
+  verificarDireitoAutoral(){    
     if(this.router.url == "/signedIn/home"){
       this.mostrarDireitoAutoral = true;
     }
