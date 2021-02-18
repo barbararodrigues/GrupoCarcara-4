@@ -4,7 +4,7 @@ export interface PlanoConta {
     login: String;
     tipoLancamento: string;
     ativo: boolean;
-
+    padrao: boolean;
 }
 
 export interface PlanoContaResponse {
@@ -13,5 +13,5 @@ export interface PlanoContaResponse {
     login: String;
     tipoLancamento: string;
     ativo: boolean;
-
+    padrao: boolean;
 }
