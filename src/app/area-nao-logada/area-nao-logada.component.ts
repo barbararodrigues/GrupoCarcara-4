@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-area-nao-logada',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AreaNaoLogadaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
+
+  mostrarDireitoAutoral: boolean = false;
 
   ngOnInit(): void {
   }
 
+  changeOfRoutes(){
+    this.verificarDireitoAutoral();
+  }
+
+  verificarDireitoAutoral(){
+    debugger
+    if(this.router.url == "/home"){
+      this.mostrarDireitoAutoral = true;
+    }
+    else{
+      this.mostrarDireitoAutoral = false;
+    }
+  }
 }

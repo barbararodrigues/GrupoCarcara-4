@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent {
+export class FooterComponent{
+
+  constructor(){}
+
+  @Input() mostrarDireitoAutoral: boolean = false;  
 
 }

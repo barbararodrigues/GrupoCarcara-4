@@ -15,12 +15,16 @@
         <td>
           <button
             class="btn btn-outline-primary mr-2"
+            [attr.disabled]="planoconta.padrao ? true : null"
+            [attr.title]="planoconta.padrao ? 'Plano de conta padão não permite edição.' : 'Editar'"
             (click)="abrirModal(modalPlanoConta, planoconta.id)"
           >
             <i class="bi bi-pencil-square"></i>
           </button>
           <button
             class="btn btn-outline-danger"
+            [attr.title]="planoconta.padrao ? 'Plano de conta padão não permite deleção.' : 'Deletar'"
+            [attr.disabled]="planoconta.padrao ? true : null"
             (click)="deletePlanoConta(planoconta.id)"
           >
             <i class="bi bi-trash"></i>
